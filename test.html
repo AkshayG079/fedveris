@@ -170,8 +170,8 @@
         <nav class="hidden lg:flex items-center gap-8 xl:gap-10">
           <a href="./index.html"
             class="text-sm font-medium text-brand-blue transition-colors uppercase tracking-widest hover:text-brand-blue/80">Home</a>
-          <a href="#"
-            class="text-sm font-bold text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Services</a>
+          <a href="./services.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Services</a>
           <a href="./work.html"
             class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Work</a>
           <a href="./process.html"
@@ -283,7 +283,8 @@
             class="flex flex-col w-full justify-center align-center text-center space-y-4">
             <a href="./index.html"
               class="text-primary-text/70 font-medium text-base hover:text-primary transition">Home</a>
-            <a href="#" class="text-primary-text/70 font-medium text-base hover:text-primary transition">Services</a>
+            <a href="./services.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Services</a>
             <a href="./process.html"
               class="text-primary-text/70 font-medium text-base hover:text-primary transition">Process</a>
             <a href="./about.html"
@@ -434,83 +435,6 @@
       menuItems.forEach((item, index) => {
         item.style.animationDelay = `${index * 0.05}s`;
       });
-    });
-  </script>
-
-  <script>
-    function toggleQuestion(element) {
-      const isActive = element.classList.contains('active-question');
-      const answerContent = element.querySelector('.answer-content');
-      const icon = element.querySelector('.material-symbols-outlined');
-
-      // On mobile (lg:hidden)
-      if (window.innerWidth < 1024) {
-        if (isActive) {
-          // Close if already active
-          element.classList.remove('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
-          element.classList.add('bg-white/60', 'dark:bg-slate-900/40');
-          answerContent.classList.add('hidden');
-          icon.style.transform = 'rotate(0deg)';
-        } else {
-          // Close all others first
-          document.querySelectorAll('.question-card').forEach(card => {
-            card.classList.remove('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
-            card.classList.add('bg-white/60', 'dark:bg-slate-900/40');
-            const otherIcon = card.querySelector('.material-symbols-outlined');
-            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
-            const otherAnswer = card.querySelector('.answer-content');
-            if (otherAnswer) otherAnswer.classList.add('hidden');
-          });
-
-          // Open this one
-          element.classList.add('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
-          element.classList.remove('bg-white/60', 'dark:bg-slate-900/40');
-          answerContent.classList.remove('hidden');
-          icon.style.transform = 'rotate(180deg)';
-        }
-      }
-      // On desktop
-      else {
-        const answerId = element.getAttribute('data-answer');
-
-        // Update question styles
-        document.querySelectorAll('.question-card').forEach(card => {
-          card.classList.remove('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
-          card.classList.add('bg-white/60', 'dark:bg-slate-900/40');
-        });
-
-        element.classList.add('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
-        element.classList.remove('bg-white/60', 'dark:bg-slate-900/40');
-
-        // Update answer panel
-        document.querySelectorAll('.answer-panel').forEach(panel => {
-          panel.classList.add('hidden');
-        });
-        document.getElementById(answerId).classList.remove('hidden');
-      }
-    }
-
-    // Handle resize events
-    window.addEventListener('resize', function () {
-      if (window.innerWidth >= 1024) {
-        // Desktop: ensure proper state
-        document.querySelectorAll('.answer-content').forEach(content => {
-          content.classList.add('hidden');
-        });
-        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
-          icon.style.transform = 'rotate(0deg)';
-        });
-      }
-    });
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function () {
-      // Set first question as active
-      const firstQuestion = document.querySelector('.question-card');
-      if (firstQuestion) {
-        firstQuestion.classList.add('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
-        firstQuestion.classList.remove('bg-white/60', 'dark:bg-slate-900/40');
-      }
     });
   </script>
 </body>
