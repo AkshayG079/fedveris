@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Premium Growth Hero Redesign</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="icon" type="image/png" href="./images/logo.svg" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;display=swap"
+    rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;family=Material+Icons&amp;display=swap"
+    rel="stylesheet" />
+
+  <!-- Add Material Icons if not already present -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Symbols+Outlined" rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#26326E",
+            "brand-blue": "#26326E",
+
+            secondary: "#4E5D94",
+            "brand-blue-muted": "#4E5D94",
+
+            "navy-dark": "#1C1C1E",
+            "primary-text": "#1C1C1E",
+
+            "primary-bg": "#F7F8FC",
+            "brand-blue-accent": "#5F6EA6",
+            "background-light": "#F7F8FC",
+            "background-dark": "#16141e",
+            "brand-gold": "#C9B88A",
+            "light-gold": "#f2b90d",
+
+            teal_step: "#4D908E",
+            peach: "#E9A68E",
+            lavender: "#9B86BD",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            serif: ["Playfair Display", "serif"],
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            CARD_DEFAULT: "1.5rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            "2xl": "1rem",
+            full: "9999px",
+          },
+        },
+      },
+    };
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+        .material-symbols-outlined {
+          font-variation-settings:
+            "FILL" 0,
+            "wght" 300,
+            "GRAD" 0,
+            "opsz" 24;
+        }
+      }
+
+      .social-icon {
+        @apply flex items-center justify-center size-10 rounded-full transition-transform hover:scale-110;
+        border: 1px solid rgba(38, 50, 110, 0.1);
+      }
+
+      /* Mobile menu animations */
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+      }
+
+      .mobile-menu-enter {
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      .mobile-menu-exit {
+        animation: slideUp 0.2s ease forwards;
+      }
+
+      /* Hamburger menu icon animation */
+      .menu-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .menu-icon.rotate {
+        transform: rotate(90deg);
+      }
+
+      /* Mobile menu items staggered animation */
+      .mobile-menu-item {
+        opacity: 0;
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      .mobile-menu-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .mobile-menu-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .mobile-menu-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .mobile-menu-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .mobile-menu-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .mobile-menu-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+    </style>
+</head>
+
+<body class="bg-primary-bg font-sans text-primary-text antialiased overflow-x-hidden">
+  <div class="relative flex min-h-screen flex-col">
+    <header class="fixed top-0 z-50 w-full bg-primary-bg/80 backdrop-blur-md">
+      <div class="mx-auto flex max-w-[1440px] items-center justify-between px-8 sm:px-6 lg:px-16 py-3 sm:py-4">
+        <!-- Logo & Brand - Left -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center">
+            <img src="./images/logo.svg" alt="Fidveris Logo" class="h-full w-full object-contain" onerror="
+                  this.onerror = null;
+                  this.src =
+                    'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'%2326326E\'/%3E%3Ctext x=\'20\' y=\'28\' font-size=\'20\' text-anchor=\'middle\' fill=\'%23C9B88A\' font-weight=\'bold\'%3EF%3C/text%3E%3C/svg%3E';
+                " />
+          </div>
+          <span class="text-lg sm:text-xl font-extrabold tracking-tight text-brand-blue uppercase">
+            Fidveris
+          </span>
+        </div>
+
+        <!-- Desktop Navigation - Hidden on mobile/tablet -->
+        <nav class="hidden lg:flex items-center gap-8 xl:gap-10">
+          <a href="../index.html"
+            class="text-sm font-medium text-brand-blue transition-colors uppercase tracking-widest hover:text-brand-blue/80">Home</a>
+          <a href="../services.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Services</a>
+          <a href="#"
+            class="text-sm font-bold text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Work</a>
+          <a href="../process.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Process</a>
+          <a href="../about.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">About</a>
+        </nav>
+
+        <!-- Right side: Desktop button + Mobile menu trigger -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <!-- Get In Touch button - Hidden on mobile, visible on sm+ -->
+          <button onclick="window.location.href = './contact.html'"
+            class="hidden sm:block border border-brand-blue text-brand-blue px-4 md:px-6 lg:px-8 py-2 text-xs font-bold uppercase tracking-widest hover:bg-brand-blue hover:text-white transition-all rounded-full whitespace-nowrap">
+            Get In Touch
+          </button>
+
+          <!-- Mobile Menu Button - Visible only on mobile/tablet -->
+          <button id="mobile-menu-button"
+            class="lg:hidden flex items-center justify-center p-2 rounded-lg border border-brand-blue/20 hover:bg-brand-blue/5 transition-colors relative overflow-hidden group"
+            aria-label="Toggle menu" onclick="toggleMobileMenu()">
+            <span id="menu-icon"
+              class="material-symbols-outlined text-brand-blue text-2xl transition-all duration-300 group-hover:scale-110">menu</span>
+            <span
+              class="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/5 transition-colors duration-300 rounded-lg"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Dropdown - Hidden by default with animation classes -->
+      <div id="mobile-menu" class="lg:hidden hidden border-t border-brand-blue/10 px-4 py-4" style="
+            background-color: rgba(247, 248, 252, 0.95);
+            backdrop-filter: blur(8px);
+          ">
+        <nav class="flex flex-col space-y-2">
+          <a href="#"
+            class="mobile-menu-item text-base font-bold text-brand-blue py-3 px-4 rounded-lg hover:bg-brand-blue/10 transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Home</a>
+          <a href="./services.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Services</a>
+          <a href="./work.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Work</a>
+          <a href="./process.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Process</a>
+          <a href="./about.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">About</a>
+
+          <!-- Mobile Contact Button (shows in menu) -->
+          <button onclick="window.location.href = './contact.html'"
+            class="mobile-menu-item sm:hidden w-full mt-2 border-2 border-brand-blue text-brand-blue py-3 text-xs font-bold uppercase tracking-widest hover:bg-brand-blue hover:text-white transition-all duration-300 rounded-full transform hover:scale-105">
+            Get In Touch
+          </button>
+        </nav>
+      </div>
+    </header>
+    <main class="flex-grow flex items-center">
+      <div class="mx-auto max-w-[1440px] w-full px-8 lg:px-16">
+        <section class="py-12">
+          <!-- Header / Title -->
+          <div class="w-full my-16">
+            <div class="w-full flex flex-col sm:flex-row justify-between items-center gap-4">
+              <h1 class="text-primary text-3xl font-semibold">
+                Golden Spice Venture
+              </h1>
+              <a href="https://goldenspiceventure.com/" target="_blank" rel="noopener noreferrer"
+                class="hidden sm:inline-block border border-brand-blue text-brand-blue px-8 py-2.5 text-xs font-bold uppercase tracking-widest rounded-full hover:bg-brand-blue hover:text-white transition-all">
+                View Live Site
+              </a>
+            </div>
+            <p class="text-slate-600 font-semibold mt-4">
+              Work / Golden Spice Venture
+            </p>
+          </div>
+
+          <!-- Main Project Image -->
+          <div class="w-full overflow-hidden rounded-xl shadow-md">
+            <img src="../images/GOLDEN_SPICE_VENTURE/turmic_Screen.png" alt="Golden Spice Venture website preview"
+              class="w-full object-cover rounded-xl" />
+          </div>
+        </section>
+        <!-- Problem / Solution / Value Delivered Section -->
+        <section class="py-12 lg:py-32 flex flex-col gap-16">
+          <!-- 01. Problem -->
+          <div class="flex flex-col md:flex-row gap-8 md:gap-10">
+            <div class="md:w-1/2">
+              <h2 class="text-lg uppercase tracking-wide font-semibold">
+                01. Problem
+              </h2>
+            </div>
+            <div class="md:w-1/2">
+              <p class="text-md leading-relaxed tracking-wide text-gray-700 dark:text-gray-300">
+                Golden Spice Venture needed a professional online presence to
+                showcase their turmeric products and establish credibility in
+                the global market. Their business required a clear,
+                easy-to-navigate website that could help international clients
+                understand their offerings and connect with them effortlessly.
+              </p>
+            </div>
+          </div>
+
+          <!-- 02. Solution -->
+          <div class="flex flex-col md:flex-row gap-8 md:gap-10">
+            <div class="md:w-1/2">
+              <h2 class="text-lg uppercase tracking-wide font-semibold">
+                02. Solution
+              </h2>
+            </div>
+            <div class="md:w-1/2">
+              <p class="text-md leading-relaxed tracking-wide text-gray-700 dark:text-gray-300">
+                We designed and developed a clean, responsive website that
+                highlights their products, business strengths, and export
+                capabilities. The platform was structured to provide clear
+                information, smooth navigation, and a consistent experience
+                across all devices.
+              </p>
+            </div>
+          </div>
+
+          <!-- 03. Value Delivered -->
+          <div class="flex flex-col md:flex-row gap-8 md:gap-10">
+            <div class="md:w-1/2">
+              <h2 class="text-lg uppercase tracking-wide font-semibold">
+                03. Value Delivered
+              </h2>
+            </div>
+            <div class="md:w-1/2">
+              <p class="text-md leading-relaxed tracking-wide text-gray-700 dark:text-gray-300">
+                The new website gives Golden Spice Venture a strong digital
+                foundation, helping them reach wider markets and build trust
+                with global clients. With improved visibility and
+                presentation, the business can now connect with international
+                customers more easily through a clear, structured website.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="pt-12 pb-20">
+          <h2 class="text-3xl text-brand-blue font-bold mb-6 tracking-wide">
+            About Golden Spice Venture
+          </h2>
+          <p class="text-gray-700 dark:text-gray-300 text-md leading-relaxed mb-4">
+            Golden Spice Venture is a trusted turmeric export company based in
+            India, dedicated to supplying high-quality turmeric to
+            international markets. With a strong focus on reliable sourcing,
+            processing and global logistics, we make it easy for businesses
+            worldwide to access premium spices directly from the farm.
+          </p>
+          <p class="text-gray-700 dark:text-gray-300 text-md leading-relaxed mb-4">
+            Our team ensures every order meets strict quality standards, while
+            our streamlined export process provides timely delivery and
+            excellent customer service. From farm to shipment, we combine
+            expertise and care to connect buyers with authentic turmeric
+            products.
+          </p>
+          <p class="text-gray-700 dark:text-gray-300 text-md leading-relaxed">
+            At Golden Spice Venture, we believe in building long-term
+            partnerships with businesses around the globe, supporting them
+            with consistent quality and transparent operations.
+          </p>
+        </section>
+
+        <!-- Hero Image -->
+        <section class="py-12">
+          <div class="w-full">
+            <img src="../images/GOLDEN_SPICE_VENTURE/GSV_design.png" class="w-full object-cover rounded-lg shadow-md"
+              alt="Golden Spice Venture Design" />
+          </div>
+        </section>
+
+        <!-- Visual Language & Specs -->
+        <section class="max-w-[85%] lg:max-w-[90%] mx-auto my-32 flex flex-col lg:flex-row justify-between gap-12">
+          <!-- Left Column -->
+          <div class="lg:w-1/2">
+            <h3 class="text-3xl text-brand-blue font-semibold mb-6 tracking-wide">
+              Visual Language & Specs
+            </h3>
+            <p class="text-gray-700 dark:text-gray-300 text-md leading-relaxed">
+              Visual Language & Specs set the design’s colors, typography, and
+              UI elements for a consistent and clear user experience.
+            </p>
+          </div>
+
+          <!-- Right Column -->
+          <div class="lg:w-1/2 flex flex-col gap-8 mt-8 lg:mt-0">
+            <!-- Color Palette -->
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
+                Color Palette
+              </h4>
+              <div class="flex flex-wrap gap-6 mb-4">
+                <!-- Color Swatch -->
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-16 h-16 rounded-full bg-[#6D4C41] border border-gray-200 shadow-sm"></div>
+                  <span class="text-xs font-mono font-medium text-gray-500">#6D4C41</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-16 h-16 rounded-full bg-[#FFC107] border border-gray-200 shadow-sm"></div>
+                  <span class="text-xs font-mono font-medium text-gray-500">#FFC107</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-16 h-16 rounded-full bg-[#2E7D32] border border-gray-200 shadow-sm"></div>
+                  <span class="text-xs font-mono font-medium text-gray-500">#2E7D32</span>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                  <div class="w-16 h-16 rounded-full bg-[#F5F5F5] border border-gray-200 shadow-sm"></div>
+                  <span class="text-xs font-mono font-medium text-gray-500">#F5F5F5</span>
+                </div>
+              </div>
+              <p class="text-sm italic text-gray-500 max-w-lg">
+                <span class="font-bold not-italic text-gray-700 dark:text-gray-300">Why we chose this:</span>
+                Our earth-toned palette combines the stability of Primary
+                Brown with the warmth of Secondary Amber, creating a
+                professional environment that fosters patient trust.
+              </p>
+            </div>
+
+            <!-- Typography -->
+            <div class="mt-4">
+              <p class="text-lg font-bold leading-tight mb-2">
+                Poppins <span class="mx-2">|</span> DM Sans
+              </p>
+              <p class="text-sm text-gray-400">Regular | Medium | Semibold</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-[85%] lg:max-w-[90%] mx-auto my-32 flex flex-col lg:flex-row justify-between gap-12">
+          <!-- Left: Wireframe -->
+          <div class="lg:w-1/2 flex justify-center lg:justify-start">
+            <div class="relative group transition-transform duration-300 hover:-translate-y-2">
+              <!-- Laptop Mockup -->
+              <div class="bg-zinc-800 p-2 rounded-xl shadow-2xl relative z-10">
+                <div
+                  class="bg-background-light aspect-[16/10] rounded-lg overflow-hidden border-4 border-zinc-900 p-6 flex flex-col gap-4">
+                  <!-- Mockup Content -->
+                  <div class="flex justify-between items-center mb-4">
+                    <div class="w-20 h-4 bg-zinc-300 rounded"></div>
+                    <div class="flex gap-2">
+                      <div class="w-8 h-2 bg-zinc-300 rounded"></div>
+                      <div class="w-8 h-2 bg-zinc-300 rounded"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4 flex-1">
+                    <div class="flex flex-col gap-3 justify-center">
+                      <div class="w-full h-6 bg-zinc-300 rounded"></div>
+                      <div class="w-2/3 h-4 bg-zinc-200 rounded"></div>
+                      <div class="w-1/2 h-8 bg-zinc-300 rounded mt-4"></div>
+                    </div>
+                    <div class="border-2 border-dashed border-zinc-300 rounded flex items-center justify-center">
+                      <span class="material-symbols-outlined text-zinc-300 text-5xl">image</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Laptop Base -->
+                <div class="h-3 w-[104%] -ml-[2%] bg-zinc-700 rounded-b-xl shadow-lg mt-1"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Description -->
+          <div class="lg:w-2/5 flex flex-col justify-center gap-4 mt-8 lg:mt-0">
+            <h3 class="text-3xl text-brand-blue font-semibold mb-6 tracking-wide">
+              Wireframe & Structure
+            </h3>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              We created a clean wireframe to plan the website structure, mapping out each section to tell Golden Spice
+              Venture’s company story clearly.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              Sections were structured to guide visitors smoothly through company information, export process, and
+              contact points.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              The wireframe ensures a responsive layout that adapts to desktop, tablet, and mobile, providing a
+              consistent and intuitive experience.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              This wireframe forms the foundation for the final UI, using the brand’s earthy colors, clean typography,
+              and minimal professional style.
+            </p>
+          </div>
+        </section>
+
+        <section
+          class="max-w-[85%] lg:max-w-[90%] mx-auto my-32 flex lg:flex-row flex-col-reverse justify-between gap-10">
+          <div class="lg:w-[40%] w-full">
+            <h3 class="text-3xl text-brand-blue font-semibold mb-10 tracking-wide">
+              Responsive Design
+            </h3>
+
+            <p class="text-md leading-relaxed text-gray-600 mb-10">
+              We design and develop responsive web experiences that adapt seamlessly across desktop, tablet, and mobile
+              devices. Every layout is carefully structured to maintain visual hierarchy, usability, and performance no
+              matter the screen size.
+            </p>
+
+            <ul class="text-sm text-gray-600 space-y-3">
+              <li> Device-first layout planning.</li>
+              <li>Layouts that adjust naturally to any screen size.</li>
+              <li>Clear text and images that look great on every device.</li>
+              <li>A smooth, consistent experience from desktop to mobile.</li>
+            </ul>
+
+          </div>
+
+          <!-- Digital Platform for a Global Turmeric Export Company -->
+
+          <div class="relative lg:w-[60%] w-full lg:h-[600px] h-[500px] flex justify-center">
+
+            <!-- Laptop (back) -->
+            <img src="../images/GOLDEN_SPICE_VENTURE/laptop_mockup.png"
+              class="w-[195px] h-[400px] lg:w-[300px] lg:h-[500px] absolute right-[1%] lg:left-[59%] top-0 z-30 shadow-2xl"
+              alt="" />
+
+            <!-- Tablet (middle) -->
+            <img src="../images/GOLDEN_SPICE_VENTURE/tab_mockup.png"
+              class="w-[160px] h-[360px] lg:w-[260px] lg:h-[460px] absolute lg:left-[28%] left-[28%] top-20  z-20 shadow-2xl"
+              alt="" />
+
+            <!-- Mobile (front) -->
+            <img src="../images/GOLDEN_SPICE_VENTURE/mob_mockup.png"
+              class="w-[140px] h-[300px] lg:w-[210px] lg:h-[400px]  absolute lg:left-[3%] left-[1%] top-44 z-10 shadow-2xl"
+              alt="" />
+
+          </div>
+        </section>
+
+        <!-- Overview & Tech Stack Section -->
+        <section class="max-w-[85%] lg:max-w-[90%] mx-auto my-32 flex flex-col lg:flex-row justify-between gap-10">
+          <!-- Left: Overview -->
+          <div class="lg:w-[48%] w-full">
+            <h3 class="text-3xl text-brand-blue font-semibold mb-10 tracking-wide">
+              Overview
+            </h3>
+
+            <p class="text-gray-600 text-sm leading-relaxed mb-8">
+              Golden Spice Venture needed a professional web presence to showcase their turmeric products and connect
+              with global buyers. We designed and developed a clean, business-focused website that builds trust,
+              highlights their export capabilities, and makes it easy for partners to get in touch.
+            </p>
+
+            <h4 class="font-semibold text-lg mb-4">
+              Key Outcomes
+            </h4>
+
+            <ul class="text-gray-600 text-sm space-y-3 mb-8 list-disc list-inside">
+              <li>Clear presentation of products and business information</li>
+              <li>Responsive layout for desktop, tablet, and mobile</li>
+              <li>Simple navigation for faster user access</li>
+              <li>Improved online visibility for buyers</li>
+            </ul>
+          </div>
+
+          <!-- Right: Tech Stack -->
+          <div class="lg:w-[48%] w-full">
+            <h3 class="text-3xl text-brand-blue font-semibold mb-10 tracking-wide">
+              Tech Stack
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Card 1 -->
+              <div
+                class="p-6 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-800/30 hover:scale-105 transition-transform duration-300">
+                <span class="material-symbols-outlined text-light-blue mb-4 text-3xl">bolt</span>
+                <h4 class="font-bold text-lg mb-2">Next.js</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                  For high-performance rendering and SEO optimization.
+                </p>
+              </div>
+
+              <!-- Card 2 -->
+              <div
+                class="p-6 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-800/30 hover:scale-105 transition-transform duration-300">
+                <span class="material-symbols-outlined text-light-blue mb-4 text-3xl">palette</span>
+                <h4 class="font-bold text-lg mb-2">Tailwind CSS</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                  For rapid, scalable, and modular UI development.
+                </p>
+              </div>
+
+              <!-- Card 3 -->
+              <div
+                class="p-6 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-800/30 hover:scale-105 transition-transform duration-300">
+                <span class="material-symbols-outlined text-light-blue mb-4 text-3xl">view_quilt</span>
+                <h4 class="font-bold text-lg mb-2">MUI (Material UI)</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                  Reliable UI components for clean, accessible interfaces.
+                </p>
+              </div>
+
+              <!-- Card 4 -->
+              <div
+                class="p-6 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-800/30 hover:scale-105 transition-transform duration-300">
+                <span class="material-symbols-outlined text-light-blue mb-4 text-3xl">cloud_done</span>
+                <h4 class="font-bold text-lg mb-2">Deployment</h4>
+                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                  Secure, reliable, and automated scaling.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="my-32 text-primary text-center border-t border-gray-100 dark:border-gray-800">
+          <h2 class="text-4xl font-bold mb-6 tracking-wide">
+            Ready to build your digital presence?
+          </h2>
+
+          <p class="text-xl text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Let’s create a professional website that helps your business connect with customers and grow online.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="../contact.html"
+              class="bg-primary text-white px-8 py-4 rounded-xl text-lg font-bold hover:shadow-lg transition-all w-full sm:w-auto text-center">
+              Start Your Project
+            </a>
+
+            <a href="../work.html"
+              class="bg-white dark:bg-gray-800 text-[#0d121b] dark:text-white px-8 py-4 rounded-xl text-lg font-bold border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all w-full sm:w-auto text-center">
+              View More Work
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <footer aria-label="Site Footer" class="bg-background-light border-t border-[#e2e8f0]">
+    <div class="w-full h-1 bg-gradient-to-r from-primary via-brand-gold to-primary"></div>
+    <div class="max-w-[1440px] mx-auto px-8 lg:px-16 py-6">
+      <div class="grid grid-cols-1 md:grid-cols-9 gap-12 lg:gap-16">
+        <!-- Brand Section -->
+        <div class="md:col-span-3 lg:col-span-3 flex flex-col gap-4">
+          <h2 class="text-brand-blue text-4xl font-serif font-bold tracking-tight">
+            FIDVERIS
+          </h2>
+          <p class="text-brand-blue/80 font-medium text-sm">
+            👋 Have an idea? We’d love to help you build it.
+          </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="md:col-span-3 lg:col-span-3">
+          <nav aria-label="Footer Navigation"
+            class="flex flex-col w-full justify-center align-center text-center space-y-4">
+            <a href="../index.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Home</a>
+            <a href="../services.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Services</a>
+            <a href="../process.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Process</a>
+            <a href="../about.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">About</a>
+            <a href="../work.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Work</a>
+            <a href="../contact.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Contact</a>
+          </nav>
+        </div>
+
+        <!-- Description + Social -->
+        <div class="md:col-span-3 lg:col-span-3 flex flex-col justify-between">
+          <p class="text-brand-blue text-xl leading-relaxed font-medium mb-8">
+            We build digital products that solve real business problems — from
+            websites to enterprise software.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#" aria-label="LinkedIn"
+              class="social-icon bg-white text-brand-blue hover:bg-brand-blue hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">link</span>
+            </a>
+            <a href="#" aria-label="X"
+              class="social-icon bg-white text-primary-text hover:bg-primary-text hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </a>
+            <a href="#" aria-label="Instagram"
+              class="social-icon bg-white text-brand-gold hover:bg-brand-gold hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+            </a>
+            <a href="#" aria-label="GitHub"
+              class="social-icon bg-white text-brand-blue hover:bg-brand-blue hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">terminal</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="mt-8 pt-8 border-t border-[#e2e8f0] flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-sm text-gray-500">
+          © 2026 FIDVERIS. All rights reserved.
+        </p>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+          <span class="text-[10px] uppercase tracking-[0.2em] text-brand-blue font-bold">Premium Digital
+            Solutions</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      const button = document.getElementById("mobile-menu-button");
+      const icon = document.getElementById("menu-icon");
+      const isOpening = menu.classList.contains("hidden");
+
+      if (isOpening) {
+        // Opening menu
+        menu.classList.remove("hidden");
+        menu.classList.remove("mobile-menu-exit");
+        menu.classList.add("mobile-menu-enter");
+
+        // Animate icon
+        icon.style.transform = "rotate(90deg)";
+        icon.textContent = "close";
+
+        // Animate icon with pulse effect
+        icon.classList.add("scale-110");
+        setTimeout(() => {
+          icon.classList.remove("scale-110");
+        }, 200);
+      } else {
+        // Closing menu with exit animation
+        menu.classList.remove("mobile-menu-enter");
+        menu.classList.add("mobile-menu-exit");
+
+        // Animate icon back to menu
+        icon.style.transform = "rotate(0deg)";
+
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+          menu.classList.add("hidden");
+          menu.classList.remove("mobile-menu-exit");
+          icon.textContent = "menu";
+        }, 200);
+      }
+    }
+
+    // Close mobile menu when clicking on a link with animation
+    document.addEventListener("DOMContentLoaded", function () {
+      const mobileLinks = document.querySelectorAll(
+        "#mobile-menu a, #mobile-menu button",
+      );
+      const menu = document.getElementById("mobile-menu");
+      const icon = document.getElementById("menu-icon");
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+          // Don't close if it's the contact button that redirects
+          if (link.tagName === "BUTTON" && link.onclick) return;
+
+          e.preventDefault();
+
+          // Animate closing
+          menu.classList.remove("mobile-menu-enter");
+          menu.classList.add("mobile-menu-exit");
+          icon.style.transform = "rotate(0deg)";
+
+          // Navigate after animation
+          setTimeout(() => {
+            menu.classList.add("hidden");
+            menu.classList.remove("mobile-menu-exit");
+            icon.textContent = "menu";
+
+            // Navigate to the link
+            if (link.tagName === "A" && link.href) {
+              window.location.href = link.href;
+            }
+          }, 200);
+        });
+      });
+
+      // Close menu when window resizes to desktop size
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 1024) {
+          // lg breakpoint
+          const menu = document.getElementById("mobile-menu");
+          const icon = document.getElementById("menu-icon");
+
+          if (!menu.classList.contains("hidden")) {
+            // Add exit animation before hiding
+            menu.classList.add("mobile-menu-exit");
+            setTimeout(() => {
+              menu.classList.add("hidden");
+              menu.classList.remove("mobile-menu-exit");
+              icon.textContent = "menu";
+              icon.style.transform = "rotate(0deg)";
+            }, 200);
+          }
+        }
+      });
+
+      // Add hover animations to menu items
+      const menuItems = document.querySelectorAll(".mobile-menu-item");
+      menuItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`;
+      });
+    });
+  </script>
+</body>
+
+</html>

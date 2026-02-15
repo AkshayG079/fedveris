@@ -1,0 +1,1344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Premium Growth Hero Redesign</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="icon" type="image/png" href="./images/logo.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;family=Material+Icons&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Add Material Icons if not already present -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#26326E",
+              "brand-blue": "#26326E",
+
+              secondary: "#4E5D94",
+              "brand-blue-muted": "#4E5D94",
+
+              "navy-dark": "#1C1C1E",
+              "primary-text": "#1C1C1E",
+
+              "primary-bg": "#F7F8FC",
+              "brand-blue-accent": "#5F6EA6",
+              "background-light": "#F7F8FC",
+              "background-dark": "#16141e",
+              "brand-gold": "#C9B88A",
+              "light-gold": "#f2b90d",
+
+              teal_step: "#4D908E",
+              peach: "#E9A68E",
+              lavender: "#9B86BD",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
+              display: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              CARD_DEFAULT: "1.5rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              "2xl": "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .material-symbols-outlined {
+          font-variation-settings:
+            "FILL" 0,
+            "wght" 300,
+            "GRAD" 0,
+            "opsz" 24;
+        }
+      }
+
+      .vertical-line {
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          #d1d5db 10%,
+          #d1d5db 90%,
+          transparent
+        );
+      }
+      .dark .vertical-line {
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          #374151 10%,
+          #374151 90%,
+          transparent
+        );
+      }
+
+      details > summary::-webkit-details-marker {
+        display: none;
+      }
+      details[open] summary .toggle-icon {
+        transform: rotate(180deg);
+      }
+
+      .social-icon {
+        @apply flex items-center justify-center size-10 rounded-full transition-transform hover:scale-110;
+        border: 1px solid rgba(38, 50, 110, 0.1);
+      }
+
+      /* Mobile menu animations */
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+      }
+
+      .mobile-menu-enter {
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      .mobile-menu-exit {
+        animation: slideUp 0.2s ease forwards;
+      }
+
+      /* Hamburger menu icon animation */
+      .menu-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .menu-icon.rotate {
+        transform: rotate(90deg);
+      }
+
+      /* Mobile menu items staggered animation */
+      .mobile-menu-item {
+        opacity: 0;
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      .mobile-menu-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .mobile-menu-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .mobile-menu-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .mobile-menu-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .mobile-menu-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .mobile-menu-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-primary-bg font-sans text-primary-text antialiased overflow-x-hidden"
+  >
+    <div class="relative flex min-h-screen flex-col">
+      <header class="fixed top-0 z-50 w-full bg-primary-bg/80 backdrop-blur-md">
+        <div
+          class="mx-auto flex max-w-[1440px] items-center justify-between px-8 sm:px-6 lg:px-16 py-3 sm:py-4"
+        >
+          <!-- Logo & Brand - Left -->
+          <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <div
+              class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center"
+            >
+              <img
+                src="./images/logo.svg"
+                alt="Fidveris Logo"
+                class="h-full w-full object-contain"
+                onerror="
+                  this.onerror = null;
+                  this.src =
+                    'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'%2326326E\'/%3E%3Ctext x=\'20\' y=\'28\' font-size=\'20\' text-anchor=\'middle\' fill=\'%23C9B88A\' font-weight=\'bold\'%3EF%3C/text%3E%3C/svg%3E';
+                "
+              />
+            </div>
+            <span
+              class="text-lg sm:text-xl font-extrabold tracking-tight text-brand-blue uppercase"
+            >
+              Fidveris
+            </span>
+          </div>
+
+          <!-- Desktop Navigation - Hidden on mobile/tablet -->
+          <nav class="hidden lg:flex items-center gap-8 xl:gap-10">
+            <a
+              href="./index.html"
+              class="text-sm font-medium text-brand-blue transition-colors uppercase tracking-widest hover:text-brand-blue/80"
+              >Home</a
+            >
+            <a
+              href="./services.html"
+              class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest"
+              >Services</a
+            >
+            <a
+              href="./work.html"
+              class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest"
+              >Work</a
+            >
+            <a
+              href="#"
+              class="text-sm font-bold text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest"
+              >Process</a
+            >
+            <a
+              href="./about.html"
+              class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest"
+              >About</a
+            >
+          </nav>
+
+          <!-- Right side: Desktop button + Mobile menu trigger -->
+          <div class="flex items-center gap-2 sm:gap-4">
+            <!-- Get In Touch button - Hidden on mobile, visible on sm+ -->
+            <button
+              onclick="window.location.href = './contact.html'"
+              class="hidden sm:block border border-brand-blue text-brand-blue px-4 md:px-6 lg:px-8 py-2 text-xs font-bold uppercase tracking-widest hover:bg-brand-blue hover:text-white transition-all rounded-full whitespace-nowrap"
+            >
+              Get In Touch
+            </button>
+
+            <!-- Mobile Menu Button - Visible only on mobile/tablet -->
+            <button
+              id="mobile-menu-button"
+              class="lg:hidden flex items-center justify-center p-2 rounded-lg border border-brand-blue/20 hover:bg-brand-blue/5 transition-colors relative overflow-hidden group"
+              aria-label="Toggle menu"
+              onclick="toggleMobileMenu()"
+            >
+              <span
+                id="menu-icon"
+                class="material-symbols-outlined text-brand-blue text-2xl transition-all duration-300 group-hover:scale-110"
+                >menu</span
+              >
+              <span
+                class="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/5 transition-colors duration-300 rounded-lg"
+              ></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown - Hidden by default with animation classes -->
+        <div
+          id="mobile-menu"
+          class="lg:hidden hidden border-t border-brand-blue/10 px-4 py-4"
+          style="
+            background-color: rgba(247, 248, 252, 0.95);
+            backdrop-filter: blur(8px);
+          "
+        >
+          <nav class="flex flex-col space-y-2">
+            <a
+              href="#"
+              class="mobile-menu-item text-base font-bold text-brand-blue py-3 px-4 rounded-lg hover:bg-brand-blue/10 transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1"
+              >Home</a
+            >
+            <a
+              href="./services.html"
+              class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1"
+              >Services</a
+            >
+            <a
+              href="./work.html"
+              class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1"
+              >Work</a
+            >
+            <a
+              href="./process.html"
+              class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1"
+              >Process</a
+            >
+            <a
+              href="./about.html"
+              class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1"
+              >About</a
+            >
+
+            <!-- Mobile Contact Button (shows in menu) -->
+            <button
+              onclick="window.location.href = './contact.html'"
+              class="mobile-menu-item sm:hidden w-full mt-2 border-2 border-brand-blue text-brand-blue py-3 text-xs font-bold uppercase tracking-widest hover:bg-brand-blue hover:text-white transition-all duration-300 rounded-full transform hover:scale-105"
+            >
+              Get In Touch
+            </button>
+          </nav>
+        </div>
+      </header>
+      <main class="flex-grow flex items-center">
+        <div class="mx-auto max-w-[1440px] w-full px-8 lg:px-16">
+          <section
+            class="min-h-screen w-full max-w-screen-md lg:max-w-7xl mx-auto flex flex-col justify-center"
+          >
+            <div class="flex flex-col items-center text-center mb-16">
+              <h1
+                class="text-4xl md:text-5xl font-serif font-bold text-primary dark:text-white mb-4"
+              >
+                Our Process
+              </h1>
+              <div class="w-20 h-1 bg-brand-gold mb-6"></div>
+              <p
+                class="max-w-2xl text-lg text-gray-600 dark:text-gray-400 mb-4"
+              >
+                Digital Solutions Built to Grow Real Businesses.
+              </p>
+              <p class="max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+                We design, develop, and maintain high-performance websites,
+                applications, and platforms that help businesses scale with
+                confidence.
+              </p>
+            </div>
+          </section>
+
+          <section class="bg-primary py-32">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center">
+              <h2
+                class="text-4xl lg:text-5xl font-bold text-white leading-tight max-w-5xl mx-auto"
+              >
+                "Every great product starts with a clear process"
+              </h2>
+            </div>
+          </section>
+
+          <section class="py-20 px-6 max-w-7xl mx-auto text-center">
+            <span
+              class="text-brand-gold font-bold tracking-widest uppercase text-sm mb-4 block"
+            >
+              Our Methodology
+            </span>
+            <h1
+              class="text-4xl md:text-6xl font-black text-primary mb-6 leading-tight"
+            >
+              Our Development Process
+            </h1>
+            <p
+              class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg"
+            >
+              We combine technical excellence with strategic foresight to ensure
+              your project exceeds expectations at every stage.
+            </p>
+            <div class="w-24 h-1 bg-brand-gold mx-auto mt-6 rounded"></div>
+          </section>
+
+          <section class="relative max-w-7xl mx-auto px-4 pb-24">
+            <div
+              class="absolute left-1/2 transform -translate-x-1/2 h-full vertical-line top-0 hidden md:block"
+            ></div>
+            <div class="relative mb-24 md:mb-16">
+              <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2"></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-primary z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-primary dark:border-background-dark z-10 hidden md:block"
+                ></div>
+                <div
+                  class="md:w-1/2 md:pl-16 flex flex-col items-center md:items-start text-center md:text-left"
+                >
+                  <div class="relative group text-right top-[4.85rem]">
+                    <div class="flex items-center gap-4 mb-3 justify-end">
+                      <span
+                        class="material-symbols-outlined text-4xl text-primary"
+                        >search</span
+                      >
+                      <span
+                        class="text-5xl font-display font-black text-primary/10 dark:text-white/5"
+                        >01</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-primary bg-primary/5 dark:bg-primary/20 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Discovery
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      We begin by immersing ourselves in your business world.
+                      Understanding your objectives, target audience, and market
+                      challenges forms the foundation of our strategy.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute lg:left-1/2 left-[48%] transform -translate-y-1/2 translate-x-[11.5%] top-1/2 h-[1px] bg-primary/20 lg:w-[270px] w-[200px] hidden md:block"
+              >
+                <span
+                  class="w-4 h-4 bg-primary absolute right-0 -top-2 rounded-full"
+                ></span>
+              </div>
+            </div>
+            <div class="relative mb-24 md:mb-16">
+              <div class="flex flex-col md:flex-row items-center">
+                <div
+                  class="md:w-1/2 md:pr-16 flex flex-col items-center md:items-end text-center md:text-right"
+                >
+                  <div class="relative group text-left top-[4.85rem]">
+                    <div
+                      class="flex items-center justify-start gap-4 mb-3 text-right"
+                    >
+                      <span
+                        class="text-5xl font-display font-black text-brand-gold/20 dark:text-brand-gold/10"
+                        >02</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-4xl text-brand-gold"
+                        >description</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-brand-gold bg-brand-gold/10 dark:bg-brand-gold/20 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Research &amp; Planning
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      Mapping the technical architecture and user flow. We
+                      create a roadmap that ensures scalability, security, and a
+                      seamless integration of your business logic.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-brand-gold z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-brand-gold dark:border-background-dark z-10 hidden md:block"
+                >
+                  <span
+                    class="w-4 h-4 bg-brand-gold absolute lg:right-[20rem] right-[14rem] top-[1.35rem] rounded-full"
+                  ></span>
+                </div>
+
+                <div class="md:w-1/2"></div>
+              </div>
+              <div
+                class="absolute left-[19.95%] lg:left-[25.95%] transform -translate-y-1/2 translate-y-[11.5%] top-1/2 h-[1px] bg-brand-gold/40 w-[210px] lg:w-[270px] hidden md:block"
+              ></div>
+            </div>
+
+            <div class="relative mb-24 md:mb-16">
+              <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2"></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-teal_step z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-teal_step dark:border-background-dark z-10 hidden md:block"
+                ></div>
+                <div
+                  class="md:w-1/2 md:pl-16 flex flex-col items-center md:items-start text-center md:text-left"
+                >
+                  <div class="relative group text-right top-[4.85rem]">
+                    <div class="flex items-center gap-4 mb-3 justify-end">
+                      <span
+                        class="material-symbols-outlined text-4xl text-teal_step"
+                        >palette</span
+                      >
+                      <span
+                        class="text-5xl font-display font-black text-teal_step/10 dark:text-white/5"
+                        >03</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-teal_step bg-teal_step/10 dark:bg-teal_step/20 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Design
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      Where utility meets aesthetics. Our design team crafts
+                      intuitive interfaces that reflect your brand identity
+                      while providing an exceptional user experience across all
+                      devices.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute lg:left-1/2 left-[48%] transform -translate-y-1/2 translate-x-[11.5%] lg:top-[8.65%] top-[9.8%] h-[1px] bg-teal_step lg:w-[270px] w-[200px] hidden md:block"
+              >
+                <span
+                  class="w-4 h-4 bg-teal_step absolute right-0 -top-2 rounded-full"
+                ></span>
+              </div>
+            </div>
+
+            <div class="relative mb-24 md:mb-16">
+              <div class="flex flex-col md:flex-row items-center">
+                <div
+                  class="md:w-1/2 md:pr-16 flex flex-col items-center md:items-end text-center md:text-right"
+                >
+                  <div class="relative group text-left top-[4.85rem]">
+                    <div class="flex items-center justify-start gap-4 mb-3">
+                      <span
+                        class="text-5xl font-display font-black text-peach/20 dark:text-peach/10"
+                        >04</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-4xl text-peach"
+                        >code</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-peach bg-peach/10 dark:bg-peach/20 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Development
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      Turning designs into reality. Our engineers utilize modern
+                      tech stacks to build robust, high-performance applications
+                      with clean, maintainable codebases.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-peach z-10 hidden md:block"
+                ></div>
+
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-peach z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-peach dark:border-background-dark z-10 hidden md:block"
+                >
+                  <span
+                    class="w-4 h-4 bg-peach absolute lg:right-[20rem] right-[14rem] top-[1.35rem] rounded-full"
+                  ></span>
+                </div>
+
+                <div class="md:w-1/2"></div>
+              </div>
+              <div
+                class="absolute left-[19.95%] lg:left-[25.95%] transform -translate-y-1/2 translate-y-[11.5%] top-1/2 h-[1px] bg-peach/20 lg:w-[270px] w-[210px] hidden md:block"
+              ></div>
+            </div>
+
+            <div class="relative mb-24 md:mb-16">
+              <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2"></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-lavender z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-lavender dark:border-background-dark z-10 hidden md:block"
+                ></div>
+                <div
+                  class="md:w-1/2 md:pl-16 flex flex-col items-center md:items-start text-center md:text-left"
+                >
+                  <div class="relative group text-right top-[4.85rem]">
+                    <div class="flex items-center gap-4 mb-3 justify-end">
+                      <span
+                        class="material-symbols-outlined text-4xl text-lavender"
+                        >bug_report</span
+                      >
+                      <span
+                        class="text-5xl font-display font-black text-lavender/10 dark:text-white/5"
+                        >05</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-lavender bg-lavender/10 dark:bg-lavender/20 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Testing
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      Quality assurance is paramount. We conduct comprehensive
+                      unit, integration, and user acceptance testing to ensure
+                      every feature works flawlessly before launch.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="absolute lg:left-1/2 left-[48%] transform -translate-y-1/2 translate-x-[11.5%] top-[15.25%] lg:top-[15%] h-[1px] bg-lavender/20 lg:w-[270px] w-[200px] hidden md:block"
+              >
+                <span
+                  class="w-4 h-4 bg-lavender absolute right-0 -top-2 rounded-full"
+                ></span>
+              </div>
+            </div>
+
+            <div class="relative mb-24 md:mb-16">
+              <div class="flex flex-col md:flex-row items-center">
+                <div
+                  class="md:w-1/2 md:pr-16 flex flex-col items-center md:items-end text-center md:text-right"
+                >
+                  <div class="relative group text-left top-[4.85rem]">
+                    <div class="flex items-center justify-start gap-4 mb-3">
+                      <span
+                        class="text-5xl font-display font-black text-slate-300 dark:text-slate-700"
+                        >06</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-4xl text-slate-500"
+                        >rocket_launch</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-slate-500 bg-slate-100 dark:bg-slate-800 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Deployment
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      Go-live with confidence. We handle the CI/CD pipeline and
+                      cloud orchestration to ensure a smooth transition from
+                      staging to production environments.
+                    </p>
+                  </div>
+                </div>
+
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-slate-500 z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-slate-500 dark:border-background-dark z-10 hidden md:block"
+                >
+                  <span
+                    class="w-4 h-4 bg-slate-500 absolute lg:right-[20rem] right-[14rem] top-[1.35rem] rounded-full"
+                  ></span>
+                </div>
+                <div class="md:w-1/2"></div>
+              </div>
+              <div
+                class="absolute left-[19.95%] lg:left-[25.95%] transform -translate-y-1/2 translate-y-[11.5%] top-1/2 h-[1px] bg-slate-500/20 lg:w-[270px] w-[210px] hidden md:block"
+              ></div>
+            </div>
+            <div class="relative">
+              <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2"></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-background-light dark:border-background-dark bg-primary z-10 hidden md:block"
+                ></div>
+                <div
+                  class="absolute left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full border-2 border-background-primary dark:border-background-dark z-10 hidden md:block"
+                ></div>
+                <div
+                  class="md:w-1/2 md:pl-16 flex flex-col items-center md:items-start text-center md:text-left"
+                >
+                  <div class="relative group text-right top-[4.85rem]">
+                    <div class="flex items-center gap-4 mb-3 justify-end">
+                      <span
+                        class="material-symbols-outlined text-4xl text-primary"
+                        >favorite</span
+                      >
+                      <span
+                        class="text-5xl font-display font-black text-primary/10 dark:text-white/5"
+                        >07</span
+                      >
+                    </div>
+                    <h3
+                      class="text-xs font-bold tracking-[0.2em] text-primary bg-primary/5 dark:bg-primary/20 inline-block px-3 py-1 mb-4 uppercase"
+                    >
+                      Support
+                    </h3>
+                    <p
+                      class="text-slate-600 dark:text-slate-400 leading-relaxed max-w-sm"
+                    >
+                      Deployment is just the beginning. We provide continuous
+                      monitoring, regular updates, and technical support to
+                      ensure your platform grows alongside your business.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute lg:left-1/2 left-[48%] transform -translate-y-1/2 translate-x-[11.5%] top-[50%] h-[1px] bg-primary/20 lg:w-[270px] w-[200px] hidden md:block"
+              >
+                <span
+                  class="w-4 h-4 bg-primary absolute right-0 -top-2 rounded-full"
+                ></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="py-24 bg-background-light" id="faq">
+            <div class="max-w-7xl mx-auto">
+              <div class="grid lg:grid-cols-[1fr_2fr] gap-16">
+                <div>
+                  <span
+                    class="text-brand-gold font-bold tracking-widest uppercase text-xs"
+                    >Project Lifecycle FAQ</span
+                  >
+                  <h2
+                    class="text-4xl lg:text-5xl font-bold text-brand-blue mt-6 font-serif leading-tight"
+                  >
+                    Everything you need to know before we start
+                  </h2>
+                  <p class="text-slate-600 mt-8 text-lg leading-relaxed">
+                    We believe in radical transparency. Our process is designed
+                    to eliminate ambiguity and build confidence at every
+                    milestone.
+                  </p>
+                  <div
+                    class="mt-12 p-8 bg-white/50 rounded-lg border border-slate-200 hidden lg:block"
+                  >
+                    <p
+                      class="text-sm font-semibold text-brand-blue flex items-center gap-3"
+                    >
+                      <span class="material-symbols-outlined text-brand-gold"
+                        >lightbulb</span
+                      >
+                      Strategic Tip
+                    </p>
+                    <p class="text-xs text-slate-500 mt-2">
+                      Discovery is the most critical phase. Getting alignment
+                      early prevents 90% of development bottlenecks later.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-4">
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                    open=""
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        1.What happens after I share my idea? How do you get
+                        started?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      <strong></strong> We begin with
+                      <strong>discovery</strong> understanding your
+                      <strong>goals, users</strong> and
+                      <strong>constraints</strong>. Then we move into
+                      <strong>detailed planning</strong> where we define
+                      <strong> features, technical approach</strong> and
+                      <strong>milestones.</strong>
+
+                      This ensures everyone is <strong>aligned</strong> before
+                      any design or development begins — and prevents
+                      <strong>scope creep</strong> later.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        2. When do I see designs? Can I review before
+                        development?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Yes. Once strategy is approved, we create
+                      <strong> high-fidelity UI/UX prototypes </strong> that you
+                      can <strong> review and interact </strong> with before
+                      development begins. Nothing moves into development until
+                      you’re
+                      <strong>comfortable with the design direction.</strong>
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        3. When does development actually start?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Development begins only after
+                      <strong></strong>design approval. Our engineers review the
+                      finalized designs to confirm
+                      <strong>performance, scalability</strong> and
+                      <strong>technical feasibility</strong> before writing
+                      <strong>production code</strong>. This avoids
+                      <strong>rework</strong> and <strong>surprises</strong>.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        4. How long does a typical project take?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Most projects fall between <strong>2–8 weeks</strong>,
+                      depending on scope. Smaller MVPs usually take around
+                      <strong>6 - 8 weeks</strong> . Larger systems may take
+                      longer. Before starting, you receive a
+                      <strong>clear roadmap</strong> so timelines are never
+                      ambiguous.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        5. What exactly do I receive at each stage?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      You get real <strong>deliverables</strong> at every step:
+                      <ul>
+                        <li>
+                          Discovery → <strong>requirements & direction</strong>
+                        </li>
+                        <li>
+                          Design → <strong>interactive prototypes</strong>
+                        </li>
+                        <li>Development → <strong>staging builds</strong></li>
+                        <li>Testing → <strong>optimized product</strong></li>
+                        <li>Launch →<strong>live system</strong></li>
+                        <li></li>
+                      </ul>
+                      You always see <strong>progress</strong> — not just status
+                      updates.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        6. How involved do I need to be during the process?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      You’re involved through
+                      <strong>scheduled demos</strong> and
+                      <strong>weekly updates</strong>. We gather feedback at
+                      <strong>key milestones</strong> without overwhelming you
+                      with daily technical decisions. You stay in
+                      <strong>control</strong> without micromanaging.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        7. What if I want changes midway through?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Changes are handled <strong>transparently</strong>. We
+                      explain how each change affects
+                      <strong>timeline and budget</strong> before proceeding so
+                      you always make informed decisions. No hidden
+                      <strong>surprises</strong>.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        8. How do you ensure quality before launch?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Every project goes through a
+                      <strong>dedicated QA phase</strong>. We test
+                      <strong>functionality, performance, security</strong> and
+                      <strong>responsiveness</strong> across devices before
+                      deployment. Your product doesn’t go live
+                      <strong>unfinished</strong>.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        9. What happens after launch? Do you disappear?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      <strong> No.</strong>
+                      <br />
+
+                      We provide <strong>post-launch support</strong>, fixes and
+                      improvements. We monitor
+                      <strong>real-world usage</strong> and help stabilize the
+                      system as users come onboard. Launch is the beginning —
+                      not the end.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        10. What if my idea isn’t fully clear yet?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      That’s normal.
+                      <br />
+
+                      Many projects start as <strong>rough concepts</strong>.
+                      Our discovery process helps turn unclear ideas into
+                      <strong>structured product plans</strong>. You don’t need
+                      everything figured out on <strong>day one</strong>.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        11. How does this process protect my investment?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Each phase <strong>validates</strong> the previous one.
+                      This reduces <strong>wasted development</strong>, catches
+                      problems <strong>early</strong> and ensures you build the
+                      <strong>right product</strong> not just any product.
+                    </div>
+                  </details>
+                  <details
+                    class="group bg-white rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-all overflow-hidden"
+                  >
+                    <summary
+                      class="flex items-center justify-between p-6 cursor-pointer list-none"
+                    >
+                      <h4 class="font-bold text-brand-blue lg:text-lg text-sm">
+                        12. Why does this process work?
+                      </h4>
+                      <span
+                        class="material-symbols-outlined text-brand-gold transition-transform duration-300 toggle-icon"
+                        >expand_more</span
+                      >
+                    </summary>
+                    <div
+                      class="px-6 pb-6 text-slate-600 leading-relaxed border-t border-slate-50 pt-4"
+                    >
+                      Because it removes<strong>guesswork</strong>.
+
+                      <strong
+                        >Structured planning, early validation, clear
+                        milestones</strong
+                      >
+                      and <strong>continuous feedback</strong> dramatically
+                      reduce <strong>risk</strong> and increase
+                      <strong>ROI</strong>.
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="pb-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+              <div
+                class="bg-primary rounded-3xl p-12 lg:p-20 text-center relative overflow-hidden"
+              >
+                <div class="relative z-10">
+                  <h2
+                    class="text-md md:text-3xl lg:text-5xl font-extrabold text-white mb-8 lg:mb-12 leading-tight"
+                  >
+                    Ready to Scale Your Technology?
+                  </h2>
+                  <button
+                    class="bg-brand-gold text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-black text-xs md:text-lg md:text-xl hover:bg-white hover:scale-105 hover:text-primary transition-all duration-300"
+                  >
+                    Let's Talk Strategy
+                  </button>
+                </div>
+
+                <!-- Background abstract patterns -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none">
+                  <svg
+                    class="w-full h-full"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 100 100"
+                  >
+                    <path
+                      d="M0 100 C 20 0 50 0 100 100"
+                      fill="transparent"
+                      stroke="white"
+                    ></path>
+                    <path
+                      d="M0 80 C 30 20 60 20 100 80"
+                      fill="transparent"
+                      stroke="white"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <footer
+      aria-label="Site Footer"
+      class="bg-background-light border-t border-[#e2e8f0]"
+    >
+      <div
+        class="w-full h-1 bg-gradient-to-r from-primary via-brand-gold to-primary"
+      ></div>
+      <div class="max-w-[1440px] mx-auto px-8 lg:px-16 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-9 gap-12 lg:gap-16">
+          <!-- Brand Section -->
+          <div class="md:col-span-3 lg:col-span-3 flex flex-col gap-4">
+            <h2
+              class="text-brand-blue text-4xl font-serif font-bold tracking-tight"
+            >
+              FIDVERIS
+            </h2>
+            <p class="text-brand-blue/80 font-medium text-sm">
+              👋 Have an idea? We’d love to help you build it.
+            </p>
+          </div>
+
+          <!-- Navigation Links -->
+          <div class="md:col-span-3 lg:col-span-3">
+            <nav
+              aria-label="Footer Navigation"
+              class="flex flex-col w-full justify-center align-center text-center space-y-4"
+            >
+              <a
+                href="./index.html"
+                class="text-primary-text/70 font-medium text-base hover:text-primary transition"
+                >Home</a
+              >
+              <a
+                href="./services.html"
+                class="text-primary-text/70 font-medium text-base hover:text-primary transition"
+                >Services</a
+              >
+              <a
+                href="./process.html"
+                class="text-primary-text/70 font-medium text-base hover:text-primary transition"
+                >Process</a
+              >
+              <a
+                href="./about.html"
+                class="text-primary-text/70 font-medium text-base hover:text-primary transition"
+                >About</a
+              >
+              <a
+                href="./work.html"
+                class="text-primary-text/70 font-medium text-base hover:text-primary transition"
+                >Work</a
+              >
+              <a
+                href="./contact.html"
+                class="text-primary-text/70 font-medium text-base hover:text-primary transition"
+                >Contact</a
+              >
+            </nav>
+          </div>
+
+          <!-- Description + Social -->
+          <div
+            class="md:col-span-3 lg:col-span-3 flex flex-col justify-between"
+          >
+            <p class="text-brand-blue text-xl leading-relaxed font-medium mb-8">
+              We build digital products that solve real business problems — from
+              websites to enterprise software.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                class="social-icon bg-white text-brand-blue hover:bg-brand-blue hover:text-white transition p-2 rounded-full"
+              >
+                <span class="material-symbols-outlined text-[20px]">link</span>
+              </a>
+              <a
+                href="#"
+                aria-label="X"
+                class="social-icon bg-white text-primary-text hover:bg-primary-text hover:text-white transition p-2 rounded-full"
+              >
+                <span class="material-symbols-outlined text-[20px]">close</span>
+              </a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                class="social-icon bg-white text-brand-gold hover:bg-brand-gold hover:text-white transition p-2 rounded-full"
+              >
+                <span class="material-symbols-outlined text-[20px]"
+                  >photo_camera</span
+                >
+              </a>
+              <a
+                href="#"
+                aria-label="GitHub"
+                class="social-icon bg-white text-brand-blue hover:bg-brand-blue hover:text-white transition p-2 rounded-full"
+              >
+                <span class="material-symbols-outlined text-[20px]"
+                  >terminal</span
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div
+          class="mt-8 pt-8 border-t border-[#e2e8f0] flex flex-col md:flex-row justify-between items-center gap-6"
+        >
+          <p class="text-sm text-gray-500">
+            © 2026 FIDVERIS. All rights reserved.
+          </p>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+            <span
+              class="text-[10px] uppercase tracking-[0.2em] text-brand-blue font-bold"
+              >Premium Digital Solutions</span
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobile-menu");
+        const button = document.getElementById("mobile-menu-button");
+        const icon = document.getElementById("menu-icon");
+        const isOpening = menu.classList.contains("hidden");
+
+        if (isOpening) {
+          // Opening menu
+          menu.classList.remove("hidden");
+          menu.classList.remove("mobile-menu-exit");
+          menu.classList.add("mobile-menu-enter");
+
+          // Animate icon
+          icon.style.transform = "rotate(90deg)";
+          icon.textContent = "close";
+
+          // Animate icon with pulse effect
+          icon.classList.add("scale-110");
+          setTimeout(() => {
+            icon.classList.remove("scale-110");
+          }, 200);
+        } else {
+          // Closing menu with exit animation
+          menu.classList.remove("mobile-menu-enter");
+          menu.classList.add("mobile-menu-exit");
+
+          // Animate icon back to menu
+          icon.style.transform = "rotate(0deg)";
+
+          // Wait for animation to complete before hiding
+          setTimeout(() => {
+            menu.classList.add("hidden");
+            menu.classList.remove("mobile-menu-exit");
+            icon.textContent = "menu";
+          }, 200);
+        }
+      }
+
+      // Close mobile menu when clicking on a link with animation
+      document.addEventListener("DOMContentLoaded", function () {
+        const mobileLinks = document.querySelectorAll(
+          "#mobile-menu a, #mobile-menu button",
+        );
+        const menu = document.getElementById("mobile-menu");
+        const icon = document.getElementById("menu-icon");
+
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            // Don't close if it's the contact button that redirects
+            if (link.tagName === "BUTTON" && link.onclick) return;
+
+            e.preventDefault();
+
+            // Animate closing
+            menu.classList.remove("mobile-menu-enter");
+            menu.classList.add("mobile-menu-exit");
+            icon.style.transform = "rotate(0deg)";
+
+            // Navigate after animation
+            setTimeout(() => {
+              menu.classList.add("hidden");
+              menu.classList.remove("mobile-menu-exit");
+              icon.textContent = "menu";
+
+              // Navigate to the link
+              if (link.tagName === "A" && link.href) {
+                window.location.href = link.href;
+              }
+            }, 200);
+          });
+        });
+
+        // Close menu when window resizes to desktop size
+        window.addEventListener("resize", function () {
+          if (window.innerWidth >= 1024) {
+            // lg breakpoint
+            const menu = document.getElementById("mobile-menu");
+            const icon = document.getElementById("menu-icon");
+
+            if (!menu.classList.contains("hidden")) {
+              // Add exit animation before hiding
+              menu.classList.add("mobile-menu-exit");
+              setTimeout(() => {
+                menu.classList.add("hidden");
+                menu.classList.remove("mobile-menu-exit");
+                icon.textContent = "menu";
+                icon.style.transform = "rotate(0deg)";
+              }, 200);
+            }
+          }
+        });
+
+        // Add hover animations to menu items
+        const menuItems = document.querySelectorAll(".mobile-menu-item");
+        menuItems.forEach((item, index) => {
+          item.style.animationDelay = `${index * 0.05}s`;
+        });
+      });
+    </script>
+  </body>
+</html>

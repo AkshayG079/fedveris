@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Premium Growth Hero Redesign</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="icon" type="image/png" href="./images/logo.svg" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;display=swap"
+    rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;family=Material+Icons&amp;display=swap"
+    rel="stylesheet" />
+
+  <!-- Add Material Icons if not already present -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Symbols+Outlined" rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#26326E",
+            "brand-blue": "#26326E",
+
+            secondary: "#4E5D94",
+            "brand-blue-muted": "#4E5D94",
+
+            "navy-dark": "#1C1C1E",
+            "primary-text": "#1C1C1E",
+
+            "primary-bg": "#F7F8FC",
+            "brand-blue-accent": "#5F6EA6",
+            "background-light": "#F7F8FC",
+            "background-dark": "#16141e",
+            "brand-gold": "#C9B88A",
+            "light-gold": "#f2b90d",
+
+            teal_step: "#4D908E",
+            peach: "#E9A68E",
+            lavender: "#9B86BD",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+            serif: ["Playfair Display", "serif"],
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            CARD_DEFAULT: "1.5rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            "2xl": "1rem",
+            full: "9999px",
+          },
+        },
+      },
+    };
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+        .material-symbols-outlined {
+          font-variation-settings:
+            "FILL" 0,
+            "wght" 300,
+            "GRAD" 0,
+            "opsz" 24;
+        }
+      }
+
+      .social-icon {
+        @apply flex items-center justify-center size-10 rounded-full transition-transform hover:scale-110;
+        border: 1px solid rgba(38, 50, 110, 0.1);
+      }
+
+      /* Mobile menu animations */
+      @keyframes slideDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideUp {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+      }
+
+      .mobile-menu-enter {
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      .mobile-menu-exit {
+        animation: slideUp 0.2s ease forwards;
+      }
+
+      /* Hamburger menu icon animation */
+      .menu-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .menu-icon.rotate {
+        transform: rotate(90deg);
+      }
+
+      /* Mobile menu items staggered animation */
+      .mobile-menu-item {
+        opacity: 0;
+        animation: slideDown 0.3s ease forwards;
+      }
+
+      .mobile-menu-item:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .mobile-menu-item:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .mobile-menu-item:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .mobile-menu-item:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .mobile-menu-item:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .mobile-menu-item:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+
+        .service-column {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      flex: 1;
+    }
+
+    .service-column:hover {
+      flex: 3;
+    }
+
+    .vertical-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+
+    .service-column:hover .vertical-text {
+      opacity: 0;
+      display: none;
+    }
+
+    /* .service-column:hover .expanded-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .expanded-content {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0s ease 0.2s;
+      } */
+
+    .expanded-content {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+    }
+
+    .service-column:hover .expanded-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .card-shape {
+      position: relative;
+      background: white;
+      border-radius: 2.5rem;
+      padding: 1rem;
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .dark .card-shape {
+      background: #0d121f;
+    }
+
+    .card-shape::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 100px;
+      height: 100px;
+      background: #f9fafb;
+      border-top-left-radius: 3rem;
+      transition: background 0.4s;
+    }
+
+    .dark .card-shape::after {
+      background: #05070a;
+    }
+
+    /* Default (Desktop – keep your current sizes) */
+    .notch-connector {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 76px;
+      height: 76px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark .notch-connector {
+      background: #1a2235;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .action-btn {
+      width: 56px;
+      height: 56px;
+      background: #c9b88a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    /* Hover only on devices that support hover */
+    @media (hover: hover) {
+      .card-shape:hover .action-btn {
+        transform: scale(1.1) rotate(-45deg);
+      }
+    }
+
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .notch-connector {
+        width: 60px;
+        height: 60px;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .action-btn {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .notch-connector {
+        width: 48px;
+        height: 48px;
+        bottom: 8px;
+        right: 8px;
+      }
+
+      .action-btn {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .ribbon-shadow {
+          filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        .ribbon-fold {
+          width: 0;
+          height: 0;
+          border-top: 20px solid #1a2350;
+          border-left: 15px solid transparent;
+          position: absolute;
+          left: 0;
+          bottom: -20px;
+        }
+        .card-shadow {
+          box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        }
+
+
+    .card-shape:hover .action-btn {
+      transform: scale(1.1) rotate(-45deg);
+    }
+
+    .gradient-progress {
+      background: linear-gradient(90deg, #0a1128 0%, #c9b88a 100%);
+    }
+
+          /* Smooth transitions */
+          .question-card {
+            transition: all 0.3s ease;
+          }
+
+          .answer-content {
+            transition: all 0.3s ease;
+          }
+
+          .material-symbols-outlined {
+            transition: transform 0.3s ease;
+          }
+
+          /* Gold bullet points */
+          .gold-bullet {
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.5rem;
+          }
+
+          .gold-bullet::before {
+            content: "•";
+            color: #fbbf24;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+            line-height: 1;
+          }
+
+          /* Mobile touch-friendly */
+          @media (max-width: 1023px) {
+            .question-card {
+              -webkit-tap-highlight-color: transparent;
+            }
+
+            .question-card:active {
+              transform: scale(0.99);
+            }
+          }
+    </style>
+</head>
+
+<body class="bg-primary-bg font-sans text-primary-text antialiased overflow-x-hidden">
+  <div class="relative flex min-h-screen flex-col">
+    <header class="fixed top-0 z-50 w-full bg-primary-bg/80 backdrop-blur-md">
+      <div class="mx-auto flex max-w-[1440px] items-center justify-between px-8 sm:px-6 lg:px-16 py-3 sm:py-4">
+        <!-- Logo & Brand - Left -->
+        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div class="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center">
+            <img src="./images/logo.svg" alt="Fidveris Logo" class="h-full w-full object-contain" onerror="
+                  this.onerror = null;
+                  this.src =
+                    'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'%2326326E\'/%3E%3Ctext x=\'20\' y=\'28\' font-size=\'20\' text-anchor=\'middle\' fill=\'%23C9B88A\' font-weight=\'bold\'%3EF%3C/text%3E%3C/svg%3E';
+                " />
+          </div>
+          <span class="text-lg sm:text-xl font-extrabold tracking-tight text-brand-blue uppercase">
+            Fidveris
+          </span>
+        </div>
+
+        <!-- Desktop Navigation - Hidden on mobile/tablet -->
+        <nav class="hidden lg:flex items-center gap-8 xl:gap-10">
+          <a href="./index.html"
+            class="text-sm font-medium text-brand-blue transition-colors uppercase tracking-widest hover:text-brand-blue/80">Home</a>
+          <a href="#"
+            class="text-sm font-bold text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Services</a>
+          <a href="./work.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Work</a>
+          <a href="./process.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">Process</a>
+          <a href="./about.html"
+            class="text-sm font-medium text-slate-600 hover:text-brand-blue transition-colors uppercase tracking-widest">About</a>
+        </nav>
+
+        <!-- Right side: Desktop button + Mobile menu trigger -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <!-- Get In Touch button - Hidden on mobile, visible on sm+ -->
+          <button onclick="window.location.href = './contact.html'"
+            class="hidden sm:block border border-brand-blue text-brand-blue px-4 md:px-6 lg:px-8 py-2 text-xs font-bold uppercase tracking-widest hover:bg-brand-blue hover:text-white transition-all rounded-full whitespace-nowrap">
+            Get In Touch
+          </button>
+
+          <!-- Mobile Menu Button - Visible only on mobile/tablet -->
+          <button id="mobile-menu-button"
+            class="lg:hidden flex items-center justify-center p-2 rounded-lg border border-brand-blue/20 hover:bg-brand-blue/5 transition-colors relative overflow-hidden group"
+            aria-label="Toggle menu" onclick="toggleMobileMenu()">
+            <span id="menu-icon"
+              class="material-symbols-outlined text-brand-blue text-2xl transition-all duration-300 group-hover:scale-110">menu</span>
+            <span
+              class="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/5 transition-colors duration-300 rounded-lg"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Dropdown - Hidden by default with animation classes -->
+      <div id="mobile-menu" class="lg:hidden hidden border-t border-brand-blue/10 px-4 py-4" style="
+            background-color: rgba(247, 248, 252, 0.95);
+            backdrop-filter: blur(8px);
+          ">
+        <nav class="flex flex-col space-y-2">
+          <a href="./index.html"
+            class="mobile-menu-item text-base font-medium text-brand-blue py-3 px-4 rounded-lg hover:bg-brand-blue/10 transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Home</a>
+          <a href="#"
+            class="mobile-menu-item text-base font-bold text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Services</a>
+          <a href="./work.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Work</a>
+          <a href="./process.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">Process</a>
+          <a href="./about.html"
+            class="mobile-menu-item text-base font-medium text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 py-3 px-4 rounded-lg transition-all duration-300 uppercase tracking-widest transform hover:translate-x-1">About</a>
+
+          <!-- Mobile Contact Button (shows in menu) -->
+          <button onclick="window.location.href = './contact.html'"
+            class="mobile-menu-item sm:hidden w-full mt-2 border-2 border-brand-blue text-brand-blue py-3 text-xs font-bold uppercase tracking-widest hover:bg-brand-blue hover:text-white transition-all duration-300 rounded-full transform hover:scale-105">
+            Get In Touch
+          </button>
+        </nav>
+      </div>
+    </header>
+    <main class="flex-grow flex items-center">
+      <div class="mx-auto max-w-[1440px] w-full  lg:px-16">
+        <section class="max-w-7xl mx-auto pt-16 px-8 md:pt-24 pb-8 md:pb-14">
+          <div class="flex flex-col items-center text-center mb-16 pt-16">
+            <h1 class="text-4xl md:text-5xl font-serif font-bold text-primary dark:text-white mb-4">
+              Our Services
+            </h1>
+            <div class="w-20 h-1 bg-brand-gold mb-6"></div>
+            <p class="max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+              Digital Solutions Built to Grow Real Businesses.
+            </p>
+            <p class="max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+              We design, develop, and maintain high-performance websites, applications, and platforms that help
+              businesses scale with confidence.
+            </p>
+          </div>
+        </section>
+
+        <section
+          class="flex flex-col lg:flex-row h-auto lg:h-[90vh] w-full border-y border-white/5 overflow-hidden bg-slate-900">
+
+          <div
+            class="service-column relative group border-r border-white/5 cursor-pointer flex-1 transition-all duration-700 hover:flex-[3] overflow-hidden">
+            <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-cover bg-center"
+              style="background-image: url('https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?auto=format&fit=crop&q=80&w=1000');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center p-6 lg:vertical-text transition-opacity duration-500 group-hover:opacity-0">
+              <span class="material-symbols-outlined text-primary text-4xl mb-4 lg:mb-8">design_services</span>
+              <h3 class="text-xl font-bold uppercase tracking-widest text-white/60">UI / UX Design</h3>
+            </div>
+
+            <div
+              class="expanded-content relative h-full flex flex-col justify-end p-8 lg:p-12 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <span class="text-primary font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Design
+                Excellence</span>
+              <h2 class="text-4xl font-extrabold text-white mb-6">User-Centric<br />Experiences</h2>
+              <p class="text-slate-300 max-w-md mb-8 leading-relaxed">We craft intuitive digital interfaces through deep
+                research and pixel-perfect execution to ensure your users stay engaged.</p>
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Figma</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Wireframing</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Prototypes</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="service-column relative group border-r border-white/5 cursor-pointer flex-1 transition-all duration-700 hover:flex-[3] overflow-hidden">
+            <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-cover bg-center"
+              style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1000');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center p-6 lg:vertical-text transition-opacity duration-500 group-hover:opacity-0">
+              <span class="material-symbols-outlined text-primary text-4xl mb-4 lg:mb-8">code</span>
+              <h3 class="text-xl font-bold uppercase tracking-widest text-white/60">Web Development</h3>
+            </div>
+
+            <div
+              class="expanded-content relative h-full flex flex-col justify-end p-8 lg:p-12 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <span class="text-primary font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Clean Code</span>
+              <h2 class="text-4xl font-extrabold text-white mb-6">Modern Web<br />Engineering</h2>
+              <p class="text-slate-300 max-w-md mb-8 leading-relaxed">Scalable, high-performance websites built with the
+                latest frameworks to give your business a competitive edge.</p>
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">React</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Next.js</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Tailwind</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="service-column relative group border-r border-white/5 cursor-pointer flex-1 transition-all duration-700 hover:flex-[3] overflow-hidden">
+            <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-cover bg-center"
+              style="background-image: url('https://images.unsplash.com/photo-1551288049-bbbda540d3ad?auto=format&fit=crop&q=80&w=1000');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center p-6 lg:vertical-text transition-opacity duration-500 group-hover:opacity-0">
+              <span class="material-symbols-outlined text-primary text-4xl mb-4 lg:mb-8">hub</span>
+              <h3 class="text-xl font-bold uppercase tracking-widest text-white/60">Web Portals</h3>
+            </div>
+
+            <div
+              class="expanded-content relative h-full flex flex-col justify-end p-8 lg:p-12 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <span class="text-primary font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Unified Access</span>
+              <h2 class="text-4xl font-extrabold text-white mb-6">Enterprise<br />Portals</h2>
+              <p class="text-slate-300 max-w-md mb-8 leading-relaxed">Custom-built dashboards and portals designed for
+                seamless data management and internal team collaboration.</p>
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Dashboards</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">SaaS</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">CRM</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="service-column relative group border-r border-white/5 cursor-pointer flex-1 transition-all duration-700 hover:flex-[3] overflow-hidden">
+            <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-cover bg-center"
+              style="background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center p-6 lg:vertical-text transition-opacity duration-500 group-hover:opacity-0">
+              <span class="material-symbols-outlined text-primary text-4xl mb-4 lg:mb-8">stay_current_portrait</span>
+              <h3 class="text-xl font-bold uppercase tracking-widest text-white/60">App Development</h3>
+            </div>
+
+            <div
+              class="expanded-content relative h-full flex flex-col justify-end p-8 lg:p-12 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <span class="text-primary font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Mobile First</span>
+              <h2 class="text-4xl font-extrabold text-white mb-6">iOS & Android<br />Solutions</h2>
+              <p class="text-slate-300 max-w-md mb-8 leading-relaxed">Developing robust mobile applications that offer
+                native performance and stunning visuals on every device.</p>
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Flutter</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Native</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Hybrid</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="service-column relative group cursor-pointer flex-1 transition-all duration-700 hover:flex-[3] overflow-hidden">
+            <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity bg-cover bg-center"
+              style="background-image: url('https://images.unsplash.com/photo-1454165833767-027eeef1593e?auto=format&fit=crop&q=80&w=1000');">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center p-6 lg:vertical-text transition-opacity duration-500 group-hover:opacity-0">
+              <span class="material-symbols-outlined text-primary text-4xl mb-4 lg:mb-8">settings_suggest</span>
+              <h3 class="text-xl font-bold uppercase tracking-widest text-white/60">Support</h3>
+            </div>
+
+            <div
+              class="expanded-content relative h-full flex flex-col justify-end p-8 lg:p-12 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+              <span class="text-primary font-bold text-sm tracking-[0.3em] uppercase mb-4 block">Reliability</span>
+              <h2 class="text-4xl font-extrabold text-white mb-6">Maintenance &<br />Optimization</h2>
+              <p class="text-slate-300 max-w-md mb-8 leading-relaxed">Continuous updates, security patches, and
+                performance monitoring to keep your digital assets running smoothly.</p>
+              <div class="flex flex-wrap gap-2 mb-8">
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">24/7 Support</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Security</span>
+                <span class="px-3 py-1 bg-white/10 rounded-full text-xs text-white/70">Updates</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 py-12 lg:py-24 space-y-32">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center" id="uiux">
+            <div class="relative group">
+              <div
+                class="absolute -inset-4 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-all duration-500">
+              </div>
+              <div
+                class="relative overflow-hidden rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 aspect-video bg-white">
+                <div class="w-full h-full bg-center bg-cover"
+                  style="background-image: url('http://googleusercontent.com/image_collection/image_retrieval/16675779467123446930_0');">
+                </div>
+              </div>
+            </div>
+            <div class="space-y-8">
+              <div class="space-y-4">
+                <span class="text-accent-gold font-bold tracking-widest uppercase text-xs">Innovation First</span>
+                <h2 class="text-4xl lg:text-5xl font-black text-primary dark:text-white leading-[1.1]">Precision UI/UX
+                  Architecture</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl">We transcend aesthetics to build
+                  human-centric digital experiences that convert. Our design process is rooted in data and validated by
+                  real user behavior.</p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="border-l-2 border-accent-gold pl-4 space-y-1">
+                  <h4 class="font-bold text-primary dark:text-white">User Research</h4>
+                  <p class="text-sm text-gray-500">Behavioral analysis and persona mapping.</p>
+                </div>
+                <div class="border-l-2 border-accent-gold pl-4 space-y-1">
+                  <h4 class="font-bold text-primary dark:text-white">Prototyping</h4>
+                  <p class="text-sm text-gray-500">High-fidelity mocks for stakeholder testing.</p>
+                </div>
+              </div>
+              <button
+                class="flex items-center gap-2 text-primary dark:text-accent-gold font-bold hover:gap-4 transition-all">
+                Explore Design Services <span class="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center" id="webdev">
+            <div class="order-2 lg:order-1 space-y-8">
+              <div class="space-y-4">
+                <span class="text-accent-gold font-bold tracking-widest uppercase text-xs">Performance Driven</span>
+                <h2 class="text-4xl lg:text-5xl font-black text-primary dark:text-white leading-[1.1]">Robust Web
+                  Engineering</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl">Enterprise-grade codebases optimized for
+                  speed, security, and scalability. We build the engine that powers your digital growth.</p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="flex gap-4 items-start">
+                  <span class="material-symbols-outlined text-accent-gold">bolt</span>
+                  <div>
+                    <h4 class="font-bold text-primary dark:text-white">Next.js & React</h4>
+                    <p class="text-sm text-gray-500">Modern frameworks for lightning-fast load times.</p>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                  <span class="material-symbols-outlined text-accent-gold">security</span>
+                  <div>
+                    <h4 class="font-bold text-primary dark:text-white">Secure API Design</h4>
+                    <p class="text-sm text-gray-500">Robust backend structures with encrypted data.</p>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="bg-primary text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:shadow-primary/30 transition-shadow">
+                View Technical Stack
+              </button>
+            </div>
+            <div class="order-1 lg:order-2 relative group">
+              <div
+                class="absolute -inset-4 bg-accent-gold/5 rounded-2xl group-hover:bg-accent-gold/10 transition-all duration-500">
+              </div>
+              <div
+                class="relative overflow-hidden rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 aspect-video bg-[#0f111a]">
+                <div class="w-full h-full bg-center bg-cover"
+                  style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1000');">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center" id="portals">
+            <div class="relative group">
+              <div
+                class="absolute -inset-4 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-all duration-500">
+              </div>
+              <div
+                class="relative overflow-hidden rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 aspect-video bg-white">
+                <div class="w-full h-full bg-center bg-cover"
+                  style="background-image: url('http://googleusercontent.com/image_collection/image_retrieval/15670107730670559829_0');">
+                </div>
+              </div>
+            </div>
+            <div class="space-y-8">
+              <div class="space-y-4">
+                <span class="text-accent-gold font-bold tracking-widest uppercase text-xs">Data Intelligent</span>
+                <h2 class="text-4xl lg:text-5xl font-black text-primary dark:text-white leading-[1.1]">Custom Web
+                  Portals</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl">Centralize your business logic with bespoke
+                  internal portals. We build sophisticated interfaces that make complex data actionable.</p>
+              </div>
+              <ul class="space-y-4">
+                <li class="flex items-center gap-4">
+                  <span class="material-symbols-outlined text-accent-gold">verified_user</span>
+                  <span class="text-lg font-medium text-primary dark:text-gray-200">Role-based Access Control
+                    (RBAC)</span>
+                </li>
+                <li class="flex items-center gap-4">
+                  <span class="material-symbols-outlined text-accent-gold">monitoring</span>
+                  <span class="text-lg font-medium text-primary dark:text-gray-200">Real-time Data Visualization</span>
+                </li>
+              </ul>
+              <button
+                class="flex items-center gap-3 px-8 py-4 bg-primary text-white rounded-xl font-bold hover:translate-y-[-2px] transition-all">
+                Schedule a Demo <span class="material-symbols-outlined">analytics</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center" id="appdev">
+            <div class="order-2 lg:order-1 space-y-8">
+              <div class="space-y-4">
+                <span class="text-accent-gold font-bold tracking-widest uppercase text-xs">Mobile First</span>
+                <h2 class="text-4xl lg:text-5xl font-black text-primary dark:text-white leading-[1.1]">Native App
+                  Experiences</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl">High-performance apps for iOS and Android.
+                  We bridge the gap between complex functionality and seamless mobile interaction.</p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+                <div class="space-y-2">
+                  <span class="material-symbols-outlined text-accent-gold text-3xl">terminal</span>
+                  <h4 class="font-bold text-lg dark:text-white">Cross-platform</h4>
+                  <p class="text-sm text-gray-500">Unified codebases using Flutter or React Native.</p>
+                </div>
+                <div class="space-y-2">
+                  <span class="material-symbols-outlined text-accent-gold text-3xl">cloud_sync</span>
+                  <h4 class="font-bold text-lg dark:text-white">API Integrations</h4>
+                  <p class="text-sm text-gray-500">Connecting your mobile ecosystem with powerful third-party APIs and
+                    existing software architectures.</p>
+                </div>
+              </div>
+            </div>
+            <div class="order-1 lg:order-2 relative group">
+              <div
+                class="absolute -inset-4 bg-accent-gold/5 rounded-2xl group-hover:bg-accent-gold/10 transition-all duration-500">
+              </div>
+              <div
+                class="relative overflow-hidden rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 aspect-video bg-white">
+                <div class="w-full h-full bg-center bg-cover"
+                  style="background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000');">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center" id="support">
+            <div class="relative group">
+              <div
+                class="absolute -inset-4 bg-primary/5 rounded-2xl group-hover:bg-primary/10 transition-all duration-500">
+              </div>
+              <div
+                class="relative overflow-hidden rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 aspect-video bg-white">
+                <div class="w-full h-full bg-center bg-cover"
+                  style="background-image: url('http://googleusercontent.com/image_collection/image_retrieval/3454268394351289346_0');">
+                </div>
+              </div>
+            </div>
+            <div class="space-y-8">
+              <div class="space-y-4">
+                <span class="text-accent-gold font-bold tracking-widest uppercase text-xs">Reliability Always</span>
+                <h2 class="text-4xl lg:text-5xl font-black text-primary dark:text-white leading-[1.1]">Maintenance &
+                  Support</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-xl">We don't just build and leave. Our
+                  dedicated support team ensures your platform stays secure, updated, and optimized 24/7.</p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div
+                  class="flex items-center gap-4 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <span class="material-symbols-outlined text-accent-gold">update</span>
+                  <div>
+                    <h4 class="font-bold dark:text-white text-sm">Regular Updates</h4>
+                    <p class="text-xs text-gray-500">Continuous patches and features.</p>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center gap-4 p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
+                  <span class="material-symbols-outlined text-accent-gold">speed</span>
+                  <div>
+                    <h4 class="font-bold dark:text-white text-sm">Optimization</h4>
+                    <p class="text-xs text-gray-500">Proactive performance tuning.</p>
+                  </div>
+                </div>
+              </div>
+              <button class="bg-primary text-white px-8 py-4 rounded-lg font-bold">Contact Support</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 py-24 relative">
+          <div class="mb-20 text-center max-w-3xl mx-auto">
+            <span class="text-brand-gold font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Our Methodology</span>
+            <h1 class="font-serif text-5xl md:text-6xl text-primary dark:text-white mb-6">
+              Our Workflow
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 font-body">
+              We combine strategy, design and technology to bring your product to market — the right way.
+            </p>
+          </div>
+
+          <div class="relative min-h-[900px]">
+            <!-- STEP 1 -->
+            <div class="absolute lg:top-0 lg:left-0 w-full lg:w-[300px] md:w-[30rem] mb-10">
+              <div class="relative lg:w-1 lg:h-[5.4rem] bg-primary lg:-right-[131%] lg:top-[10.4rem] "></div>
+              <div class="relative lg:w-[5.95rem] lg:h-1 bg-primary lg:top-20 lg:-right-[100%]"></div>
+              <div class="bg-white p-6 rounded-xl shadow border-t-4 border-brand-gold">
+                <h3 class="font-bold">01. Discovery</h3>
+                <p class="text-sm text-slate-600">
+                  Defining project goals, vision, and core requirements through collaborative workshops.</p>
+              </div>
+              <div class="relative lg:w-1 lg:h-[5rem] bg-primary lg:top-0 lg:left-24"></div>
+              <div class="relative lg:w-[5.5rem] lg:h-1 lg:left-24 bg-primary"></div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div
+              class="absolute lg:top-[160px] top-[10rem] md:right-0 lg:right-auto lg:left-[180px] w-full md:w-[30rem] lg:w-[300px] mb-10">
+              <div class="relative lg:w-1 lg:h-[5.4rem] bg-primary lg:-right-[131%] lg:top-[10.4rem] "></div>
+              <div class="relative lg:w-[5.95rem] lg:h-1 bg-primary lg:top-20 lg:-right-[100%]"></div>
+              <div class="bg-white p-6 rounded-xl shadow border-t-4 border-brand-gold">
+                <h3 class="font-bold">02. Research & Plan</h3>
+                <p class="text-sm text-slate-600">Strategic architecture and technical mapping to ensure a scalable
+                  foundation.</p>
+              </div>
+              <div class="relative lg:w-1 lg:h-[5rem] bg-primary lg:top-0 lg:left-24"></div>
+              <div class="relative lg:w-[5.5rem] lg:h-1 lg:left-24 bg-primary"></div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="absolute lg:top-[320px] top-[20rem] lg:left-[360px] w-full md:w-[30rem] lg:w-[300px] mb-10">
+              <div class="relative lg:w-1 lg:h-[5.4rem] bg-primary lg:-right-[131%] lg:top-[10.4rem] "></div>
+              <div class="relative lg:w-[5.95rem] lg:h-1 bg-primary lg:top-20 lg:-right-[100%]"></div>
+              <div class="bg-white p-6 rounded-xl shadow border-t-4 border-brand-gold">
+                <h3 class="font-bold">03. Design</h3>
+                <p class="text-sm text-slate-600">High-fidelity visual UI/UX prototyping that breathes life into your
+                  brand identity.</p>
+              </div>
+              <div class="relative lg:w-1 lg:h-[5rem] bg-primary lg:top-0 lg:left-24"></div>
+              <div class="relative lg:w-[5.5rem] lg:h-1 lg:left-24 bg-primary"></div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div
+              class="absolute lg:top-[480px] top-[30rem] md:right-0 lg:right-auto lg:left-[540px] w-full md:w-[30rem] lg:w-[300px] mb-10">
+              <div class="relative lg:w-1 lg:h-[5.4rem] bg-primary lg:-right-[131%] lg:top-[10.4rem] "></div>
+              <div class="relative lg:w-[5.95rem] lg:h-1 bg-primary lg:top-20 lg:-right-[100%]"></div>
+              <div class="bg-white p-6 rounded-xl shadow border-t-4 border-brand-gold">
+                <h3 class="font-bold">04. Development</h3>
+                <p class="text-sm text-slate-600">Clean, functional coding with a focus on performance, security and
+                  accessibility.</p>
+              </div>
+              <div class="relative lg:w-1 lg:h-[5rem] bg-primary lg:top-0 lg:left-24"></div>
+              <div class="relative lg:w-[5.5rem] lg:h-1 lg:left-24 bg-primary"></div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="absolute lg:top-[640px] top-[40rem] lg:left-[720px] w-full md:w-[30rem] lg:w-[300px] mb-10">
+              <div class="relative lg:w-1 lg:h-[5.4rem] bg-primary lg:-right-[131%] lg:top-[10.4rem] "></div>
+              <div class="relative lg:w-[5.95rem] lg:h-1 bg-primary lg:top-20 lg:-right-[100%]"></div>
+              <div class="bg-white p-6 rounded-xl shadow border-t-4 border-brand-gold">
+                <h3 class="font-bold">05. Testing</h3>
+                <p class="text-sm text-slate-600">Rigorous QA, bug hunting, and performance checks across all devices
+                  and browsers.</p>
+              </div>
+              <div class="relative lg:w-1 lg:h-[5rem] bg-primary lg:top-0 lg:left-24"></div>
+              <div class="relative lg:w-[5.5rem] lg:h-1 lg:left-24 bg-primary"></div>
+            </div>
+
+            <!-- STEP 6 -->
+            <div
+              class="absolute lg:top-[56rem] top-[50rem] md:right-0 lg:right-auto lg:left-[900px] w-full lg:w-[300px] md:w-[30rem] mb-10">
+              <div class="bg-white p-6 rounded-xl shadow border-t-4 border-brand-gold">
+                <h3 class="font-bold">06. Deployment</h3>
+                <p class="text-sm text-slate-600">Final delivery, go-live support and post-launch monitoring for total
+                  success.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-6 py-16 overflow-hidden">
+          <div class="container mx-auto px-8 mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+              <div class="max-w-2xl">
+                <span class="text-brand-gold font-bold uppercase tracking-[0.3em] text-xs mb-4 block">Portfolio</span>
+                <h1
+                  class="text-6xl md:text-8xl font-extrabold text-primary dark:text-white tracking-tight leading-none">
+                  Selected<br />Works
+                </h1>
+              </div>
+              <div class="flex items-center gap-6">
+                <button
+                  class="w-14 h-14 border border-navy/10 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-navy hover:text-brand-gold dark:hover:bg-white dark:hover:text-navy transition-all">
+                  <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button
+                  class="w-14 h-14 border border-navy/10 dark:border-white/10 rounded-full flex items-center justify-center hover:bg-navy hover:text-brand-gold dark:hover:bg-white dark:hover:text-navy transition-all">
+                  <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="flex overflow-x-auto no-scrollbar gap-8 px-8 pb-12 cursor-pointer">
+
+              <div class="flex-shrink-0 w-[300px] md:w-[380px]">
+                <div class="card-shape group overflow-hidden relative">
+
+                  <!-- Image -->
+                  <img src="./images/GOLDEN_SPICE_VENTURE/GSV_design.png"
+                    class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105"
+                    alt="" />
+
+                  <!-- Title -->
+                  <div class="mt-10 transition-opacity duration-500">
+                    <span class="text-sm font-bold uppercase tracking-widest text-primary">
+                      Golden Spice Venture
+                    </span>
+                  </div>
+
+                  <!-- Action Button -->
+                  <div class="notch-connector">
+                    <a class="action-btn" href="#">
+                      <span class="material-symbols-outlined">arrow_outward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="flex-shrink-0 w-[300px] md:w-[380px]">
+                <div class="card-shape group overflow-hidden relative">
+
+                  <!-- Image -->
+                  <img src="./images/GOLDEN_SPICE_VENTURE/GSV_design.png"
+                    class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105"
+                    alt="" />
+
+                  <!-- Title -->
+                  <div class="mt-10 transition-opacity duration-500">
+                    <span class="text-sm font-bold uppercase tracking-widest text-primary">
+                      Golden Spice Venture
+                    </span>
+                  </div>
+
+                  <!-- Action Button -->
+                  <div class="notch-connector">
+                    <a class="action-btn" href="#">
+                      <span class="material-symbols-outlined">arrow_outward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="flex-shrink-0 w-[300px] md:w-[380px]">
+                <div class="card-shape group overflow-hidden relative">
+
+                  <!-- Image -->
+                  <img src="./images/GOLDEN_SPICE_VENTURE/GSV_design.png"
+                    class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105"
+                    alt="" />
+
+                  <!-- Title -->
+                  <div class="mt-10 transition-opacity duration-500">
+                    <span class="text-sm font-bold uppercase tracking-widest text-primary">
+                      Golden Spice Venture
+                    </span>
+                  </div>
+
+                  <!-- Action Button -->
+                  <div class="notch-connector">
+                    <a class="action-btn" href="#">
+                      <span class="material-symbols-outlined">arrow_outward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="flex-shrink-0 w-[300px] md:w-[380px]">
+                <div class="card-shape group overflow-hidden relative">
+
+                  <!-- Image -->
+                  <img src="./images/GOLDEN_SPICE_VENTURE/GSV_design.png"
+                    class="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-105"
+                    alt="" />
+
+                  <!-- Title -->
+                  <div class="mt-10 transition-opacity duration-500">
+                    <span class="text-sm font-bold uppercase tracking-widest text-primary">
+                      Golden Spice Venture
+                    </span>
+                  </div>
+
+                  <!-- Action Button -->
+                  <div class="notch-connector">
+                    <a class="action-btn" href="#">
+                      <span class="material-symbols-outlined">arrow_outward</span>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+              <div class="flex-shrink-0 w-8"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative">
+          <!-- Header Section -->
+          <div class="mb-12 md:mb-20 text-center max-w-4xl mx-auto">
+            <h1
+              class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary dark:text-white mb-4 md:mb-6 leading-tight">
+              Everything You Need to Know Before Working With Us
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 font-body max-w-3xl mx-auto">
+              We believe in complete transparency. Here you'll find clear answers about our process, pricing, timelines
+              and how we work, so you can make confident decisions before starting your project with us.
+            </p>
+          </div>
+
+          <!-- Main Content Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mt-8 lg:mt-20">
+            <!-- Left Column: Questions List -->
+            <div class="lg:col-span-5 flex flex-col gap-3 lg:sticky lg:top-28">
+              <div class="flex flex-col gap-3" id="questions-container">
+                <!-- Question 1 (Active by default) -->
+                <div
+                  class="question-card active-question bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-xl shadow-md border border-slate-100 dark:border-slate-800 cursor-pointer transition-all hover:shadow-lg"
+                  data-answer="answer-1" onclick="toggleQuestion(this)">
+                  <div class="flex items-center justify-between gap-4">
+                    <h3 class="text-primary dark:text-white text-base sm:text-lg font-playfair font-bold flex-1">
+                      How do we ensure the project stays on track?
+                    </h3>
+                    <span
+                      class="material-symbols-outlined text-primary dark:text-gold transition-transform duration-300">
+                      expand_more
+                    </span>
+                  </div>
+                  <!-- Mobile Answer (hidden on desktop) -->
+                  <div class="answer-content lg:hidden mt-4 hidden">
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <div class="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-widest mb-3">
+                        <span class="h-px w-8 bg-gold"></span>
+                        Project Management
+                      </div>
+                      <h4 class="text-primary dark:text-white text-xl font-playfair font-bold mb-4">
+                        The FIDVERIS Milestone Approach
+                      </h4>
+                      <p class="text-slate-600 dark:text-slate-400 text-base mb-6">
+                        We utilize a rigorous milestone-based approach to ensure transparency and timely delivery. Every
+                        project is mapped out from day one with clear deliverables, deadlines, and a dedicated project
+                        manager.
+                      </p>
+                      <a href="#"
+                        class="inline-flex items-center gap-2 text-primary dark:text-gold text-sm font-bold group">
+                        Learn more
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
+                          arrow_forward
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div
+                  class="question-card bg-white/60 dark:bg-slate-900/40 p-4 sm:p-6 rounded-xl border border-slate-100 dark:border-slate-800 cursor-pointer transition-all hover:bg-white dark:hover:bg-slate-900"
+                  data-answer="answer-2" onclick="toggleQuestion(this)">
+                  <div class="flex items-center justify-between gap-4">
+                    <h3 class="text-slate-700 dark:text-slate-300 text-base sm:text-lg font-playfair font-bold flex-1">
+                      What happens if we need to change the scope mid-build?
+                    </h3>
+                    <span class="material-symbols-outlined text-slate-400 transition-transform duration-300">
+                      expand_more
+                    </span>
+                  </div>
+                  <!-- Mobile Answer -->
+                  <div class="answer-content lg:hidden mt-4 hidden">
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <h4 class="text-primary dark:text-white text-lg font-playfair font-bold mb-3">
+                        Flexible Scope Management
+                      </h4>
+                      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                        We accommodate changes through our agile change request process. Minor adjustments are handled
+                        within sprints, while significant scope changes are evaluated and quoted separately.
+                      </p>
+                      <a href="#" class="text-primary dark:text-gold text-sm font-medium">Read our change policy →</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div
+                  class="question-card bg-white/60 dark:bg-slate-900/40 p-4 sm:p-6 rounded-xl border border-slate-100 dark:border-slate-800 cursor-pointer transition-all hover:bg-white dark:hover:bg-slate-900"
+                  data-answer="answer-3" onclick="toggleQuestion(this)">
+                  <div class="flex items-center justify-between gap-4">
+                    <h3 class="text-slate-700 dark:text-slate-300 text-base sm:text-lg font-playfair font-bold flex-1">
+                      What is our post-launch support policy?
+                    </h3>
+                    <span class="material-symbols-outlined text-slate-400 transition-transform duration-300">
+                      expand_more
+                    </span>
+                  </div>
+                  <!-- Mobile Answer -->
+                  <div class="answer-content lg:hidden mt-4 hidden">
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <h4 class="text-primary dark:text-white text-lg font-playfair font-bold mb-3">
+                        90-Day Warranty & Beyond
+                      </h4>
+                      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                        We provide 90 days of bug fixes and critical updates post-launch. Optional maintenance retainer
+                        available for ongoing support and feature additions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div
+                  class="question-card bg-white/60 dark:bg-slate-900/40 p-4 sm:p-6 rounded-xl border border-slate-100 dark:border-slate-800 cursor-pointer transition-all hover:bg-white dark:hover:bg-slate-900"
+                  data-answer="answer-4" onclick="toggleQuestion(this)">
+                  <div class="flex items-center justify-between gap-4">
+                    <h3 class="text-slate-700 dark:text-slate-300 text-base sm:text-lg font-playfair font-bold flex-1">
+                      How do we handle intellectual property and ownership?
+                    </h3>
+                    <span class="material-symbols-outlined text-slate-400 transition-transform duration-300">
+                      expand_more
+                    </span>
+                  </div>
+                  <!-- Mobile Answer -->
+                  <div class="answer-content lg:hidden mt-4 hidden">
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <h4 class="text-primary dark:text-white text-lg font-playfair font-bold mb-3">
+                        Full Ownership Transfer
+                      </h4>
+                      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                        Upon final payment, you receive complete ownership of all deliverables including source code,
+                        designs, and assets. No licensing fees or hidden restrictions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div
+                  class="question-card bg-white/60 dark:bg-slate-900/40 p-4 sm:p-6 rounded-xl border border-slate-100 dark:border-slate-800 cursor-pointer transition-all hover:bg-white dark:hover:bg-slate-900"
+                  data-answer="answer-5" onclick="toggleQuestion(this)">
+                  <div class="flex items-center justify-between gap-4">
+                    <h3 class="text-slate-700 dark:text-slate-300 text-base sm:text-lg font-playfair font-bold flex-1">
+                      How does the billing and payment schedule work?
+                    </h3>
+                    <span class="material-symbols-outlined text-slate-400 transition-transform duration-300">
+                      expand_more
+                    </span>
+                  </div>
+                  <!-- Mobile Answer -->
+                  <div class="answer-content lg:hidden mt-4 hidden">
+                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <h4 class="text-primary dark:text-white text-lg font-playfair font-bold mb-3">
+                        Milestone-Based Payments
+                      </h4>
+                      <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+                        30% upfront to begin, followed by milestone payments tied to deliverables. Final 20% due upon
+                        launch. Flexible payment plans available for longer engagements.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CTA Box -->
+              <div class="mt-6 lg:mt-8 p-5 sm:p-6 bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/10">
+                <p class="text-primary dark:text-slate-300 text-sm font-medium mb-3">
+                  Still have questions?
+                </p>
+                <button
+                  class="flex items-center gap-2 text-primary dark:text-gold text-sm font-bold group w-full sm:w-auto justify-center sm:justify-start">
+                  Contact our strategy team
+                  <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
+                    arrow_forward
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Column: Answer Display (Desktop Only) -->
+            <div
+              class="hidden lg:block lg:col-span-7 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-100 dark:border-slate-800 p-8 md:p-12"
+              id="desktop-answer">
+              <!-- Answer 1 (Default) -->
+              <div id="answer-1" class="answer-panel block">
+                <div class="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-widest mb-4">
+                  <span class="h-px w-8 bg-gold"></span>
+                  Project Management
+                </div>
+                <h2 class="text-primary dark:text-white text-3xl font-playfair font-bold mb-8 leading-tight">
+                  The FIDVERIS Milestone Approach
+                </h2>
+                <div class="prose dark:prose-invert max-w-none">
+                  <p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                    We utilize a rigorous milestone-based approach to ensure
+                    transparency and timely delivery. Every project is mapped out
+                    from day one with clear deliverables, deadlines, and a
+                    dedicated project manager acting as your single point of
+                    contact.
+                  </p>
+                  <h4 class="text-primary dark:text-gold text-xl font-bold mb-4">
+                    Key Tracking Mechanisms:
+                  </h4>
+                  <ul class="space-y-4 mb-8 pl-5">
+                    <li class="gold-bullet text-slate-700 dark:text-slate-300">
+                      <strong>Weekly Sync Meetings:</strong> A 30-minute status
+                      update every Monday to review progress and upcoming
+                      blockers.
+                    </li>
+                    <li class="gold-bullet text-slate-700 dark:text-slate-300">
+                      <strong>Real-time Dashboard Access:</strong> You get a
+                      private invite to our project board to see exactly which
+                      task is currently being worked on.
+                    </li>
+                    <li class="gold-bullet text-slate-700 dark:text-slate-300">
+                      <strong>Milestone Sign-offs:</strong> No work proceeds to
+                      the next stage until you've approved the previous phase's
+                      deliverables.
+                    </li>
+                    <li class="gold-bullet text-slate-700 dark:text-slate-300">
+                      <strong>Dedicated Slack Channel:</strong> Instant
+                      communication with our design and development leads
+                      throughout the business day.
+                    </li>
+                  </ul>
+                  <div
+                    class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-lg border-l-4 border-gold italic text-slate-600 dark:text-slate-400">
+                    "Our goal is zero surprises. By the time we launch, you'll
+                    know every pixel and line of code because you've been a
+                    partner in the process."
+                  </div>
+                </div>
+              </div>
+
+              <!-- Other answer panels (simplified for brevity) -->
+              <div id="answer-2" class="answer-panel hidden">
+                <h2 class="text-primary dark:text-white text-3xl font-playfair font-bold mb-4">Scope Change Policy</h2>
+                <p class="text-slate-600 dark:text-slate-400">We accommodate changes through our agile change request
+                  process...</p>
+              </div>
+
+              <div id="answer-3" class="answer-panel hidden">
+                <h2 class="text-primary dark:text-white text-3xl font-playfair font-bold mb-4">Post-Launch Support</h2>
+                <p class="text-slate-600 dark:text-slate-400">90-day warranty included with all projects...</p>
+              </div>
+
+              <div id="answer-4" class="answer-panel hidden">
+                <h2 class="text-primary dark:text-white text-3xl font-playfair font-bold mb-4">IP & Ownership</h2>
+                <p class="text-slate-600 dark:text-slate-400">Full ownership transfer upon final payment...</p>
+              </div>
+
+              <div id="answer-5" class="answer-panel hidden">
+                <h2 class="text-primary dark:text-white text-3xl font-playfair font-bold mb-4">Payment Schedule</h2>
+                <p class="text-slate-600 dark:text-slate-400">Milestone-based payments with flexible options...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="py-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+          <div class="text-center mb-24">
+            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-primary dark:text-white mb-8">
+              What Our Clients Say About Working With Us
+            </h2>
+            <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+              These are real words from real clients who trusted us with their
+              ideas, timelines and budgets and watched them turn into
+              working products.
+            </p>
+          </div>
+          <div class="flex justify-center gap-y-24 gap-x-8 mt-12 place-items-center w-full">
+
+            <div
+              class="relative bg-card-light dark:bg-card-dark p-8 pt-16 rounded-3xl card-shadow border border-gray-100 dark:border-gray-800 mx-auto w-full max-w-md">
+              <div class="absolute -top-6 -left-4 z-10">
+                <div
+                  class="bg-primary text-white py-4 pl-10 pr-12 rounded-tr-3xl rounded-br-3xl rounded-tl-3xl ribbon-shadow">
+                  <h4 class="font-semibold text-xs leading-tight">
+                    Mahajan Gumte
+                  </h4>
+                  <p class="text-xs opacity-90">
+                    Founder, Golden Spice Venture
+                  </p>
+                </div>
+                <div class="ribbon-fold"></div>
+              </div>
+              <div class="absolute -top-12 right-6">
+                <div
+                  class="w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-white dark:border-gray-700 shadow-lg overflow-hidden bg-gray-200">
+                  <img alt="Client" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWSL3wmJQAerglcG30-xESp_UQpSO1k1NQkW-uR6d8RuHBvtfdPJk6lA1vP5sC-AnIHOCxVJtUD3xlC3_4Yubov6pUdAxwr-3DVUKGAH6ntQ-R0kj42rn-LDaW7Tujrt73U3JAbTdwBIhGWaLtfHNWqaJPyfgy6sCj6QzVDEFfPstP1uDzwblvMLmDh3FyuCOJmKiTHpMQOpHOOw9osMw_afVau6KKIdXvydaTfS9nUEaHpAVKGkoVyOY0gYUow2zzPidXjAPDnbEm" />
+                </div>
+              </div>
+              <div class="mt-4 flex flex-col h-full">
+                <div class="flex items-center gap-1 mb-6">
+                  <span class="material-icons text-brand-gold">star</span>
+                  <span class="material-icons text-brand-gold">star</span>
+                  <span class="material-icons text-brand-gold">star</span>
+                  <span class="material-icons text-brand-gold">star</span>
+                  <span class="material-icons text-brand-gold">star</span>
+                </div>
+                <div class="flex gap-4">
+                  <div class="w-1 bg-primary dark:bg-accent rounded-full flex-shrink-0"></div>
+                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                    "Fidveris took the time to understand our export business
+                    and built a website that reflects our brand properly. The
+                    team was responsive, professional and easy to work with.
+                    We’re very satisfied with the outcome."
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="max-w-7xl mb-20 mx-auto px-6 pt-16 pb-8 md:pb-14">
+          <div
+            class="p-10 bg-primary rounded-2xl flex flex-col md:flex-row items-center justify-between text-white overflow-hidden relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+            <div class="relative z-10 mb-6 md:mb-0">
+              <h2 class="text-2xl md:text-3xl font-bold mb-2">
+                Ready to start your next project?
+              </h2>
+              <p class="text-white/80">
+                Let's build something amazing together that grows your business.
+              </p>
+            </div>
+            <button
+              class="relative z-10 px-8 py-4 bg-white text-primary rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-xl"
+              onclick="window.location.href='./contact.html'">
+              Schedule a Free Call
+            </button>
+          </div>
+        </section>
+
+
+
+      </div>
+    </main>
+  </div>
+  <footer aria-label="Site Footer" class="bg-background-light border-t border-[#e2e8f0]">
+    <div class="w-full h-1 bg-gradient-to-r from-primary via-brand-gold to-primary"></div>
+    <div class="max-w-[1440px] mx-auto px-8 lg:px-16 py-6">
+      <div class="grid grid-cols-1 md:grid-cols-9 gap-12 lg:gap-16">
+        <!-- Brand Section -->
+        <div class="md:col-span-3 lg:col-span-3 flex flex-col gap-4">
+          <h2 class="text-brand-blue text-4xl font-serif font-bold tracking-tight">
+            FIDVERIS
+          </h2>
+          <p class="text-brand-blue/80 font-medium text-sm">
+            👋 Have an idea? We’d love to help you build it.
+          </p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="md:col-span-3 lg:col-span-3">
+          <nav aria-label="Footer Navigation"
+            class="flex flex-col w-full justify-center align-center text-center space-y-4">
+            <a href="./index.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Home</a>
+            <a href="#" class="text-primary-text/70 font-medium text-base hover:text-primary transition">Services</a>
+            <a href="./process.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Process</a>
+            <a href="./about.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">About</a>
+            <a href="./work.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Work</a>
+            <a href="./contact.html"
+              class="text-primary-text/70 font-medium text-base hover:text-primary transition">Contact</a>
+          </nav>
+        </div>
+
+        <!-- Description + Social -->
+        <div class="md:col-span-3 lg:col-span-3 flex flex-col justify-between">
+          <p class="text-brand-blue text-xl leading-relaxed font-medium mb-8">
+            We build digital products that solve real business problems — from
+            websites to enterprise software.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#" aria-label="LinkedIn"
+              class="social-icon bg-white text-brand-blue hover:bg-brand-blue hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">link</span>
+            </a>
+            <a href="#" aria-label="X"
+              class="social-icon bg-white text-primary-text hover:bg-primary-text hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">close</span>
+            </a>
+            <a href="#" aria-label="Instagram"
+              class="social-icon bg-white text-brand-gold hover:bg-brand-gold hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+            </a>
+            <a href="#" aria-label="GitHub"
+              class="social-icon bg-white text-brand-blue hover:bg-brand-blue hover:text-white transition p-2 rounded-full">
+              <span class="material-symbols-outlined text-[20px]">terminal</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="mt-8 pt-8 border-t border-[#e2e8f0] flex flex-col md:flex-row justify-between items-center gap-6">
+        <p class="text-sm text-gray-500">
+          © 2026 FIDVERIS. All rights reserved.
+        </p>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+          <span class="text-[10px] uppercase tracking-[0.2em] text-brand-blue font-bold">Premium Digital
+            Solutions</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById("mobile-menu");
+      const button = document.getElementById("mobile-menu-button");
+      const icon = document.getElementById("menu-icon");
+      const isOpening = menu.classList.contains("hidden");
+
+      if (isOpening) {
+        // Opening menu
+        menu.classList.remove("hidden");
+        menu.classList.remove("mobile-menu-exit");
+        menu.classList.add("mobile-menu-enter");
+
+        // Animate icon
+        icon.style.transform = "rotate(90deg)";
+        icon.textContent = "close";
+
+        // Animate icon with pulse effect
+        icon.classList.add("scale-110");
+        setTimeout(() => {
+          icon.classList.remove("scale-110");
+        }, 200);
+      } else {
+        // Closing menu with exit animation
+        menu.classList.remove("mobile-menu-enter");
+        menu.classList.add("mobile-menu-exit");
+
+        // Animate icon back to menu
+        icon.style.transform = "rotate(0deg)";
+
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+          menu.classList.add("hidden");
+          menu.classList.remove("mobile-menu-exit");
+          icon.textContent = "menu";
+        }, 200);
+      }
+    }
+
+    // Close mobile menu when clicking on a link with animation
+    document.addEventListener("DOMContentLoaded", function () {
+      const mobileLinks = document.querySelectorAll(
+        "#mobile-menu a, #mobile-menu button",
+      );
+      const menu = document.getElementById("mobile-menu");
+      const icon = document.getElementById("menu-icon");
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+          // Don't close if it's the contact button that redirects
+          if (link.tagName === "BUTTON" && link.onclick) return;
+
+          e.preventDefault();
+
+          // Animate closing
+          menu.classList.remove("mobile-menu-enter");
+          menu.classList.add("mobile-menu-exit");
+          icon.style.transform = "rotate(0deg)";
+
+          // Navigate after animation
+          setTimeout(() => {
+            menu.classList.add("hidden");
+            menu.classList.remove("mobile-menu-exit");
+            icon.textContent = "menu";
+
+            // Navigate to the link
+            if (link.tagName === "A" && link.href) {
+              window.location.href = link.href;
+            }
+          }, 200);
+        });
+      });
+
+      // Close menu when window resizes to desktop size
+      window.addEventListener("resize", function () {
+        if (window.innerWidth >= 1024) {
+          // lg breakpoint
+          const menu = document.getElementById("mobile-menu");
+          const icon = document.getElementById("menu-icon");
+
+          if (!menu.classList.contains("hidden")) {
+            // Add exit animation before hiding
+            menu.classList.add("mobile-menu-exit");
+            setTimeout(() => {
+              menu.classList.add("hidden");
+              menu.classList.remove("mobile-menu-exit");
+              icon.textContent = "menu";
+              icon.style.transform = "rotate(0deg)";
+            }, 200);
+          }
+        }
+      });
+
+      // Add hover animations to menu items
+      const menuItems = document.querySelectorAll(".mobile-menu-item");
+      menuItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.05}s`;
+      });
+    });
+  </script>
+
+  <script>
+    function toggleQuestion(element) {
+      const isActive = element.classList.contains('active-question');
+      const answerContent = element.querySelector('.answer-content');
+      const icon = element.querySelector('.material-symbols-outlined');
+
+      // On mobile (lg:hidden)
+      if (window.innerWidth < 1024) {
+        if (isActive) {
+          // Close if already active
+          element.classList.remove('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
+          element.classList.add('bg-white/60', 'dark:bg-slate-900/40');
+          answerContent.classList.add('hidden');
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          // Close all others first
+          document.querySelectorAll('.question-card').forEach(card => {
+            card.classList.remove('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
+            card.classList.add('bg-white/60', 'dark:bg-slate-900/40');
+            const otherIcon = card.querySelector('.material-symbols-outlined');
+            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+            const otherAnswer = card.querySelector('.answer-content');
+            if (otherAnswer) otherAnswer.classList.add('hidden');
+          });
+
+          // Open this one
+          element.classList.add('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
+          element.classList.remove('bg-white/60', 'dark:bg-slate-900/40');
+          answerContent.classList.remove('hidden');
+          icon.style.transform = 'rotate(180deg)';
+        }
+      }
+      // On desktop
+      else {
+        const answerId = element.getAttribute('data-answer');
+
+        // Update question styles
+        document.querySelectorAll('.question-card').forEach(card => {
+          card.classList.remove('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
+          card.classList.add('bg-white/60', 'dark:bg-slate-900/40');
+        });
+
+        element.classList.add('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
+        element.classList.remove('bg-white/60', 'dark:bg-slate-900/40');
+
+        // Update answer panel
+        document.querySelectorAll('.answer-panel').forEach(panel => {
+          panel.classList.add('hidden');
+        });
+        document.getElementById(answerId).classList.remove('hidden');
+      }
+    }
+
+    // Handle resize events
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 1024) {
+        // Desktop: ensure proper state
+        document.querySelectorAll('.answer-content').forEach(content => {
+          content.classList.add('hidden');
+        });
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+          icon.style.transform = 'rotate(0deg)';
+        });
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function () {
+      // Set first question as active
+      const firstQuestion = document.querySelector('.question-card');
+      if (firstQuestion) {
+        firstQuestion.classList.add('active-question', 'bg-white', 'dark:bg-slate-900', 'shadow-md');
+        firstQuestion.classList.remove('bg-white/60', 'dark:bg-slate-900/40');
+      }
+    });
+  </script>
+</body>
+
+</html>
